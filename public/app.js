@@ -177,6 +177,7 @@ const state = { chapters: [], activeSlug: null };
 // Read history, persisted in localStorage as an array of chapter slugs.
 
 const READ_STORAGE_KEY = "read-chapters";
+const LAST_CHAPTER_STORAGE_KEY = "last-reading-chapter";
 
 function getReadSlugs() {
   try {
@@ -189,6 +190,14 @@ function getReadSlugs() {
 
 function saveReadSlugs(set) {
   localStorage.setItem(READ_STORAGE_KEY, JSON.stringify([...set]));
+}
+
+function getLastReadingSlug() {
+  return localStorage.getItem(LAST_CHAPTER_STORAGE_KEY);
+}
+
+function setLastReadingSlug(slug) {
+  localStorage.setItem(LAST_CHAPTER_STORAGE_KEY, slug);
 }
 
 function isChapterRead(slug) {
@@ -264,6 +273,9 @@ async function loadChapterList() {
 
 async function selectChapter(slug) {
   state.activeSlug = slug;
+  if (state.chapters.some((ch) => ch.slug === slug)) {
+    setLastReadingSlug(slug);
+  }
   document.querySelectorAll(".chapter-item").forEach((el) => {
     el.classList.toggle("active", el.dataset.slug === slug);
   });
@@ -310,7 +322,25 @@ function initChapterControls() {
 initChapterControls();
 
 loadChapterList().then(() => {
-  const firstSlug = new URLSearchParams(location.search).get("chapter") || state.chapters[0]?.slug;
+  const params = new URLSearchParams(location.search);
+  const requestedSlug = params.get("chapter");
+  const firstSlug = state.chapters[0]?.slug;
+  const hasChapter = (slug) => !!slug && state.chapters.some((ch) => ch.slug === slug);
+  const lastReadingSlug = getLastReadingSlug();
+
+  if (hasChapter(requestedSlug)) {
+    selectChapter(requestedSlug);
+    return;
+  }
+
+  if (hasChapter(lastReadingSlug) && lastReadingSlug !== firstSlug) {
+    const shouldResume = window.confirm("Do you want to resume your reading?");
+    if (shouldResume) {
+      selectChapter(lastReadingSlug);
+      return;
+    }
+  }
+
   if (firstSlug) selectChapter(firstSlug);
 });
 
