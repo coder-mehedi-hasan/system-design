@@ -290,7 +290,10 @@ async function selectChapter(slug) {
     view.innerHTML = renderMarkdown(md);
     window.scrollTo({ top: 0 });
   } catch (err) {
-    view.innerHTML = `<div class="error">Could not load "${slug}.md" — ${err.message}. Make sure you're serving this folder over HTTP (not opening index.html directly as a file).</div>`;
+    const errorBox = document.createElement("div");
+    errorBox.className = "error";
+    errorBox.textContent = `Could not load "${slug}.md" — ${err.message}. Make sure you're serving this folder over HTTP (not opening index.html directly as a file).`;
+    view.replaceChildren(errorBox);
   }
 
   updateReadUI();
