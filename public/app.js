@@ -178,6 +178,7 @@ const state = { chapters: [], activeSlug: null };
 
 const READ_STORAGE_KEY = "read-chapters";
 const LAST_CHAPTER_STORAGE_KEY = "last-reading-chapter";
+const READING_POSITION_STORAGE_KEY = "chapter-reading-positions";
 
 function getReadSlugs() {
   try {
@@ -200,6 +201,33 @@ function setLastReadingSlug(slug) {
   localStorage.setItem(LAST_CHAPTER_STORAGE_KEY, slug);
 }
 
+function getReadingPositions() {
+  try {
+    const raw = localStorage.getItem(READING_POSITION_STORAGE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveReadingPositions(positions) {
+  localStorage.setItem(READING_POSITION_STORAGE_KEY, JSON.stringify(positions));
+}
+
+function getChapterReadingPosition(slug) {
+  const value = getReadingPositions()[slug];
+  return Number.isFinite(value) && value >= 0 ? value : 0;
+}
+
+function setChapterReadingPosition(slug, scrollY) {
+  if (!slug || !Number.isFinite(scrollY)) return;
+  const positions = getReadingPositions();
+  positions[slug] = Math.max(0, Math.round(scrollY));
+  saveReadingPositions(positions);
+}
+
 function isChapterRead(slug) {
   return getReadSlugs().has(slug);
 }
@@ -209,6 +237,11 @@ function setChapterRead(slug, read) {
   if (read) set.add(slug);
   else set.delete(slug);
   saveReadSlugs(set);
+}
+
+function saveActiveReadingPosition() {
+  if (!state.activeSlug) return;
+  setChapterReadingPosition(state.activeSlug, window.scrollY);
 }
 
 function updateReadUI() {
@@ -271,7 +304,8 @@ async function loadChapterList() {
   updateReadUI();
 }
 
-async function selectChapter(slug) {
+async function selectChapter(slug, options = {}) {
+  saveActiveReadingPosition();
   state.activeSlug = slug;
   if (state.chapters.some((ch) => ch.slug === slug)) {
     setLastReadingSlug(slug);
@@ -288,7 +322,10 @@ async function selectChapter(slug) {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const md = await res.text();
     view.innerHTML = renderMarkdown(md);
-    window.scrollTo({ top: 0 });
+    const savedScrollY = Number.isFinite(options.scrollY)
+      ? options.scrollY
+      : getChapterReadingPosition(slug);
+    window.scrollTo({ top: options.restorePosition ? savedScrollY : 0 });
   } catch (err) {
     const errorBox = document.createElement("div");
     errorBox.className = "error";
@@ -322,7 +359,25 @@ function initChapterControls() {
   });
 }
 
+function initReadingPositionTracking() {
+  let scrollSaveTimer = null;
+  const scheduleSave = () => {
+    if (scrollSaveTimer !== null) window.clearTimeout(scrollSaveTimer);
+    scrollSaveTimer = window.setTimeout(() => {
+      saveActiveReadingPosition();
+      scrollSaveTimer = null;
+    }, 150);
+  };
+
+  window.addEventListener("scroll", scheduleSave, { passive: true });
+  window.addEventListener("beforeunload", saveActiveReadingPosition);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") saveActiveReadingPosition();
+  });
+}
+
 initChapterControls();
+initReadingPositionTracking();
 
 loadChapterList().then(() => {
   const params = new URLSearchParams(location.search);
@@ -339,7 +394,8 @@ loadChapterList().then(() => {
   if (hasChapter(lastReadingSlug) && lastReadingSlug !== firstSlug) {
     const shouldResume = window.confirm("Do you want to resume your reading?");
     if (shouldResume) {
-      selectChapter(lastReadingSlug);
+      const scrollY = getChapterReadingPosition(lastReadingSlug);
+      selectChapter(lastReadingSlug, { restorePosition: true, scrollY });
       return;
     }
   }
