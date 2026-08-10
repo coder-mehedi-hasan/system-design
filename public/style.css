@@ -196,6 +196,24 @@ body {
   margin-bottom: 20px;
 }
 
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.chapter-position {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.toolbar-sep {
+  font-size: 12px;
+  color: var(--border);
+}
+
 .read-progress {
   font-size: 12px;
   color: var(--text-muted);

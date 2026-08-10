@@ -230,6 +230,11 @@ function updateNavButtons() {
 
   prevBtn.disabled = idx <= 0;
   nextBtn.disabled = idx === -1 || idx >= state.chapters.length - 1;
+
+  const positionEl = document.getElementById("chapter-position");
+  if (positionEl && idx !== -1) {
+    positionEl.textContent = `Chapter ${idx + 1} of ${state.chapters.length}`;
+  }
 }
 
 async function loadChapterList() {
