@@ -34,7 +34,7 @@ Packet lost? → Detect → Retransmit → Verify → Success
 
 **UDP:**
 
-Packet lost? → ¯\\_(ツ)_/¯ → Continue
+Packet lost? → ¯\_(ツ)_/¯ → Continue
 
 No guarantees, application handles losses
 
