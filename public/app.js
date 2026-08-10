@@ -177,6 +177,8 @@ const state = { chapters: [], activeSlug: null };
 // Read history, persisted in localStorage as an array of chapter slugs.
 
 const READ_STORAGE_KEY = "read-chapters";
+const LAST_CHAPTER_STORAGE_KEY = "last-reading-chapter";
+const READING_POSITION_STORAGE_KEY = "chapter-reading-positions";
 
 function getReadSlugs() {
   try {
@@ -191,6 +193,41 @@ function saveReadSlugs(set) {
   localStorage.setItem(READ_STORAGE_KEY, JSON.stringify([...set]));
 }
 
+function getLastReadingSlug() {
+  return localStorage.getItem(LAST_CHAPTER_STORAGE_KEY);
+}
+
+function setLastReadingSlug(slug) {
+  localStorage.setItem(LAST_CHAPTER_STORAGE_KEY, slug);
+}
+
+function getReadingPositions() {
+  try {
+    const raw = localStorage.getItem(READING_POSITION_STORAGE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveReadingPositions(positions) {
+  localStorage.setItem(READING_POSITION_STORAGE_KEY, JSON.stringify(positions));
+}
+
+function getChapterReadingPosition(slug) {
+  const value = getReadingPositions()[slug];
+  return Number.isFinite(value) && value >= 0 ? value : 0;
+}
+
+function setChapterReadingPosition(slug, scrollY) {
+  if (!slug || !Number.isFinite(scrollY)) return;
+  const positions = getReadingPositions();
+  positions[slug] = Math.max(0, Math.round(scrollY));
+  saveReadingPositions(positions);
+}
+
 function isChapterRead(slug) {
   return getReadSlugs().has(slug);
 }
@@ -200,6 +237,29 @@ function setChapterRead(slug, read) {
   if (read) set.add(slug);
   else set.delete(slug);
   saveReadSlugs(set);
+}
+
+function saveActiveReadingPosition() {
+  if (!state.activeSlug) return;
+  setChapterReadingPosition(state.activeSlug, window.scrollY);
+}
+
+function restoreChapterReadingPosition(slug, targetY) {
+  if (!Number.isFinite(targetY) || targetY < 0) return;
+  const desiredY = Math.round(targetY);
+  let attempts = 0;
+  const maxAttempts = 10;
+
+  const applyRestore = () => {
+    if (state.activeSlug !== slug) return;
+    const maxScrollY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    window.scrollTo({ top: Math.min(desiredY, maxScrollY) });
+    attempts += 1;
+    if (attempts >= maxAttempts) return;
+    window.setTimeout(() => window.requestAnimationFrame(applyRestore), 120);
+  };
+
+  window.requestAnimationFrame(applyRestore);
 }
 
 function updateReadUI() {
@@ -262,8 +322,12 @@ async function loadChapterList() {
   updateReadUI();
 }
 
-async function selectChapter(slug) {
+async function selectChapter(slug, options = {}) {
+  saveActiveReadingPosition();
   state.activeSlug = slug;
+  if (state.chapters.some((ch) => ch.slug === slug)) {
+    setLastReadingSlug(slug);
+  }
   document.querySelectorAll(".chapter-item").forEach((el) => {
     el.classList.toggle("active", el.dataset.slug === slug);
   });
@@ -276,9 +340,19 @@ async function selectChapter(slug) {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const md = await res.text();
     view.innerHTML = renderMarkdown(md);
-    window.scrollTo({ top: 0 });
+    const savedScrollY = Number.isFinite(options.scrollY)
+      ? options.scrollY
+      : getChapterReadingPosition(slug);
+    if (options.restorePosition) {
+      restoreChapterReadingPosition(slug, savedScrollY);
+    } else {
+      window.scrollTo({ top: 0 });
+    }
   } catch (err) {
-    view.innerHTML = `<div class="error">Could not load "${slug}.md" — ${err.message}. Make sure you're serving this folder over HTTP (not opening index.html directly as a file).</div>`;
+    const errorBox = document.createElement("div");
+    errorBox.className = "error";
+    errorBox.textContent = `Could not load "${slug}.md" — ${err.message}. Make sure you're serving this folder over HTTP (not opening index.html directly as a file).`;
+    view.replaceChildren(errorBox);
   }
 
   updateReadUI();
@@ -307,10 +381,47 @@ function initChapterControls() {
   });
 }
 
+function initReadingPositionTracking() {
+  let scrollSaveTimer = null;
+  const scheduleSave = () => {
+    if (scrollSaveTimer !== null) window.clearTimeout(scrollSaveTimer);
+    scrollSaveTimer = window.setTimeout(() => {
+      saveActiveReadingPosition();
+      scrollSaveTimer = null;
+    }, 150);
+  };
+
+  window.addEventListener("scroll", scheduleSave, { passive: true });
+  window.addEventListener("beforeunload", saveActiveReadingPosition);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") saveActiveReadingPosition();
+  });
+}
+
 initChapterControls();
+initReadingPositionTracking();
 
 loadChapterList().then(() => {
-  const firstSlug = new URLSearchParams(location.search).get("chapter") || state.chapters[0]?.slug;
+  const params = new URLSearchParams(location.search);
+  const requestedSlug = params.get("chapter");
+  const firstSlug = state.chapters[0]?.slug;
+  const hasChapter = (slug) => !!slug && state.chapters.some((ch) => ch.slug === slug);
+  const lastReadingSlug = getLastReadingSlug();
+
+  if (hasChapter(requestedSlug)) {
+    selectChapter(requestedSlug);
+    return;
+  }
+
+  if (hasChapter(lastReadingSlug) && lastReadingSlug !== firstSlug) {
+    const shouldResume = window.confirm("Do you want to resume your reading?");
+    if (shouldResume) {
+      const scrollY = getChapterReadingPosition(lastReadingSlug);
+      selectChapter(lastReadingSlug, { restorePosition: true, scrollY });
+      return;
+    }
+  }
+
   if (firstSlug) selectChapter(firstSlug);
 });
 
