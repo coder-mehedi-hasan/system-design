@@ -174,6 +174,64 @@ function renderMarkdown(src) {
 
 const state = { chapters: [], activeSlug: null };
 
+// Read history, persisted in localStorage as an array of chapter slugs.
+
+const READ_STORAGE_KEY = "read-chapters";
+
+function getReadSlugs() {
+  try {
+    const raw = localStorage.getItem(READ_STORAGE_KEY);
+    return raw ? new Set(JSON.parse(raw)) : new Set();
+  } catch {
+    return new Set();
+  }
+}
+
+function saveReadSlugs(set) {
+  localStorage.setItem(READ_STORAGE_KEY, JSON.stringify([...set]));
+}
+
+function isChapterRead(slug) {
+  return getReadSlugs().has(slug);
+}
+
+function setChapterRead(slug, read) {
+  const set = getReadSlugs();
+  if (read) set.add(slug);
+  else set.delete(slug);
+  saveReadSlugs(set);
+}
+
+function updateReadUI() {
+  const readSlugs = getReadSlugs();
+
+  document.querySelectorAll(".chapter-item").forEach((el) => {
+    el.classList.toggle("is-read", readSlugs.has(el.dataset.slug));
+  });
+
+  const progressEl = document.getElementById("read-progress");
+  if (progressEl && state.chapters.length) {
+    progressEl.textContent = `${readSlugs.size}/${state.chapters.length} read`;
+  }
+
+  const markBtn = document.getElementById("mark-read-btn");
+  const markLabel = document.getElementById("mark-read-label");
+  if (markBtn && markLabel && state.activeSlug) {
+    const read = readSlugs.has(state.activeSlug);
+    markBtn.classList.toggle("is-read", read);
+    markLabel.textContent = read ? "Read" : "Mark as read";
+  }
+}
+
+function updateNavButtons() {
+  const prevBtn = document.getElementById("prev-btn");
+  const nextBtn = document.getElementById("next-btn");
+  const idx = state.chapters.findIndex((ch) => ch.slug === state.activeSlug);
+
+  prevBtn.disabled = idx <= 0;
+  nextBtn.disabled = idx === -1 || idx >= state.chapters.length - 1;
+}
+
 async function loadChapterList() {
   const res = await fetch("chapters.json");
   state.chapters = await res.json();
@@ -182,11 +240,21 @@ async function loadChapterList() {
   state.chapters.forEach((ch) => {
     const btn = document.createElement("button");
     btn.className = "chapter-item";
-    btn.textContent = ch.title;
     btn.dataset.slug = ch.slug;
+
+    const dot = document.createElement("span");
+    dot.className = "read-dot";
+    btn.appendChild(dot);
+
+    const label = document.createElement("span");
+    label.className = "chapter-item-label";
+    label.textContent = ch.title;
+    btn.appendChild(label);
+
     btn.addEventListener("click", () => selectChapter(ch.slug));
     nav.appendChild(btn);
   });
+  updateReadUI();
 }
 
 async function selectChapter(slug) {
@@ -208,8 +276,33 @@ async function selectChapter(slug) {
     view.innerHTML = `<div class="error">Could not load "${slug}.md" — ${err.message}. Make sure you're serving this folder over HTTP (not opening index.html directly as a file).</div>`;
   }
 
+  updateReadUI();
+  updateNavButtons();
+
   if (mobileQuery.matches) setSidebarCollapsed(true);
 }
+
+function initChapterControls() {
+  document.getElementById("mark-read-btn").addEventListener("click", () => {
+    if (!state.activeSlug) return;
+    setChapterRead(state.activeSlug, !isChapterRead(state.activeSlug));
+    updateReadUI();
+  });
+
+  document.getElementById("prev-btn").addEventListener("click", () => {
+    const idx = state.chapters.findIndex((ch) => ch.slug === state.activeSlug);
+    if (idx > 0) selectChapter(state.chapters[idx - 1].slug);
+  });
+
+  document.getElementById("next-btn").addEventListener("click", () => {
+    const idx = state.chapters.findIndex((ch) => ch.slug === state.activeSlug);
+    if (idx !== -1 && idx < state.chapters.length - 1) {
+      selectChapter(state.chapters[idx + 1].slug);
+    }
+  });
+}
+
+initChapterControls();
 
 loadChapterList().then(() => {
   const firstSlug = new URLSearchParams(location.search).get("chapter") || state.chapters[0]?.slug;

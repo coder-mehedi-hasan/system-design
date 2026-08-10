@@ -139,9 +139,130 @@ body {
   justify-content: center;
 }
 
-.markdown-body {
+.content-inner {
   width: 100%;
   max-width: 760px;
+}
+
+.markdown-body {
+  width: 100%;
+}
+
+/* Chapter toolbar (progress + mark-as-read) */
+
+.chapter-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.read-progress {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.mark-read-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-muted);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.mark-read-btn svg {
+  opacity: 0.5;
+}
+
+.mark-read-btn:hover {
+  background: var(--sidebar-bg);
+  color: var(--text);
+}
+
+.mark-read-btn.is-read {
+  background: #ecfdf3;
+  border-color: #b7ebc6;
+  color: #12734b;
+}
+
+.mark-read-btn.is-read svg {
+  opacity: 1;
+}
+
+/* Prev/Next chapter navigation */
+
+.chapter-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.chapter-nav-btn {
+  padding: 9px 16px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.chapter-nav-btn:hover:not(:disabled) {
+  background: var(--sidebar-bg);
+}
+
+.chapter-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+#next-btn {
+  margin-left: auto;
+}
+
+/* Read indicator in sidebar */
+
+.chapter-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chapter-item .chapter-item-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.chapter-item .read-dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22a06b;
+  opacity: 0;
+}
+
+.chapter-item.is-read .read-dot {
+  opacity: 1;
+}
+
+.chapter-item.is-read {
+  color: var(--text-muted);
+}
+
+.chapter-item.is-read.active {
+  color: var(--accent);
 }
 
 /* Responsive: sidebar becomes an overlay drawer below 860px */
