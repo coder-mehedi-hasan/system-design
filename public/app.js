@@ -337,3 +337,49 @@ function initSidebarToggle() {
 }
 
 initSidebarToggle();
+
+// PWA: offline caching via service worker, install prompt, and online/offline badge
+
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
+
+function initInstallPrompt() {
+  const installBtn = document.getElementById("install-btn");
+  let deferredPrompt = null;
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredPrompt = event;
+    installBtn.hidden = false;
+  });
+
+  installBtn.addEventListener("click", async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installBtn.hidden = true;
+  });
+
+  window.addEventListener("appinstalled", () => {
+    installBtn.hidden = true;
+  });
+}
+
+function initOfflineBadge() {
+  const badge = document.getElementById("offline-badge");
+  const update = () => {
+    badge.hidden = navigator.onLine;
+  };
+  window.addEventListener("online", update);
+  window.addEventListener("offline", update);
+  update();
+}
+
+registerServiceWorker();
+initInstallPrompt();
+initOfflineBadge();
