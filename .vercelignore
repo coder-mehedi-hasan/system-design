@@ -1,0 +1,9 @@
+node_modules
+.wrangler
+.git
+.claude
+server.js
+worker.js
+wrangler.jsonc
+*.log
+.DS_Store
