@@ -244,6 +244,24 @@ function saveActiveReadingPosition() {
   setChapterReadingPosition(state.activeSlug, window.scrollY);
 }
 
+function restoreChapterReadingPosition(slug, targetY) {
+  if (!Number.isFinite(targetY) || targetY < 0) return;
+  const desiredY = Math.round(targetY);
+  let attempts = 0;
+  const maxAttempts = 10;
+
+  const applyRestore = () => {
+    if (state.activeSlug !== slug) return;
+    const maxScrollY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    window.scrollTo({ top: Math.min(desiredY, maxScrollY) });
+    attempts += 1;
+    if (attempts >= maxAttempts) return;
+    window.setTimeout(() => window.requestAnimationFrame(applyRestore), 120);
+  };
+
+  window.requestAnimationFrame(applyRestore);
+}
+
 function updateReadUI() {
   const readSlugs = getReadSlugs();
 
@@ -325,7 +343,11 @@ async function selectChapter(slug, options = {}) {
     const savedScrollY = Number.isFinite(options.scrollY)
       ? options.scrollY
       : getChapterReadingPosition(slug);
-    window.scrollTo({ top: options.restorePosition ? savedScrollY : 0 });
+    if (options.restorePosition) {
+      restoreChapterReadingPosition(slug, savedScrollY);
+    } else {
+      window.scrollTo({ top: 0 });
+    }
   } catch (err) {
     const errorBox = document.createElement("div");
     errorBox.className = "error";
