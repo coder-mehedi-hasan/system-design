@@ -108,7 +108,7 @@ GET /users/john/posts
 **Key characteristics:**
 
 * Safe: Doesn't modify data
-* Idempotent: Calling it 100 times \= same result as calling it once
+* Idempotent: Calling it 100 times = same result as calling it once
 * Can be bookmarked/cached
 
 **Common mistake:** Never use GET to delete or modify data! That's like saying "looking at the menu should cancel your order" - chaos!
@@ -131,7 +131,7 @@ GET /users/john/posts
 Body:
 ```json
 
-{  "title": "My First Post",  "content": "Hello World\!"}
+{  "title": "My First Post",  "content": "Hello World!"}
 
 ```
 Creates new post, returns Post ID: 43
@@ -174,7 +174,7 @@ Creates new post, returns Post ID: 43
 
 **Key characteristics:**
 
-* Idempotent: Calling it 100 times \= same result
+* Idempotent: Calling it 100 times = same result
 * Must send COMPLETE resource
 * Creates resource if it doesn't exist (sometimes)
 
@@ -231,7 +231,7 @@ Only changes the title, keeps everything else
 
 **Key characteristics:**
 
-* Idempotent: Deleting twice \= same result as once
+* Idempotent: Deleting twice = same result as once
 * Usually returns confirmation
 * May return 404 on second attempt (resource already gone)
 

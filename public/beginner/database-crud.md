@@ -17,7 +17,7 @@ Think about it:
 
 ### **🔤 What is CRUD?**
 
-**CRUD \= The four basic operations you can do with data**
+**CRUD = The four basic operations you can do with data**
 
 * **C**reate - Add new records
 * **R**ead - View/retrieve records
@@ -152,7 +152,7 @@ SELECT * FROM users WHERE age > 26
  UPDATE users SET age = 50;
  ```
 
--- Everyone is now 50! |
+-- Everyone is now 50! |
 
 -- SAFE: Updates specific user:
 
@@ -252,7 +252,7 @@ DELETE FROM users;
 
  1️⃣ CREATE: Write new post
  ```sql
-INSERT INTO posts (title, content, author_id, created_at)VALUES ('My First Post', 'Hello World\!', 1, NOW());
+INSERT INTO posts (title, content, author_id, created_at)VALUES ('My First Post', 'Hello World!', 1, NOW());
 ```
 
 2️⃣ READ: View all posts
@@ -263,7 +263,7 @@ SELECT posts.title, posts.content, users.username FROM posts JOIN users ON posts
 3️⃣ UPDATE: Edit post
 ```sql
 UPDATE posts
-SET content = 'Updated content here\!',    updated_at = NOW()WHERE id = 1;
+SET content = 'Updated content here!',    updated_at = NOW()WHERE id = 1;
 ```
 
 ```sql

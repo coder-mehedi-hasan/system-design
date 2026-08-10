@@ -50,7 +50,7 @@ Your LLD answers:
 
 ✓ Use PostgreSQL database with 'reservations' table
 
-✓ Table has columns: id, customer\_name, phone, date, time, party\_size
+✓ Table has columns: id, customer_name, phone, date, time, party_size
 
 ✓ API endpoint: POST /api/reservations
 
@@ -62,8 +62,8 @@ Your LLD answers:
 
 **Mental Model:**
 
-* **HLD** \= The restaurant floor plan showing "Kitchen here, tables there, bar over here"
-* **LLD** \= The detailed electrical wiring diagram showing "outlet here, wire gauge 14AWG, circuit breaker 20A"
+* **HLD** = The restaurant floor plan showing "Kitchen here, tables there, bar over here"
+* **LLD** = The detailed electrical wiring diagram showing "outlet here, wire gauge 14AWG, circuit breaker 20A"
 
 ---
 
@@ -93,7 +93,7 @@ Tech Stack: Node.js backend, React frontend, MongoDB
 class TweetService {
   async postTweet(userId, content, mediaUrls) {
       // Step 1: Validate input
-      if (!content || content.length \> 280) {
+      if (!content || content.length > 280) {
 
         throw new ValidationError("Invalid tweet length");
         }
@@ -164,10 +164,10 @@ Imagine building IKEA furniture:
 
 **Real-world comparison:**
 
-No HLD \= Building a house without a floor plan
+No HLD = Building a house without a floor plan
          Result: Bathroom ends up in the middle of the living room
 
-No LLD \= Having the floor plan but no construction details
+No LLD = Having the floor plan but no construction details
          Result: You know WHERE the bathroom goes, but not HOW to
          install the plumbing, what pipe sizes, what materials
 
@@ -253,5 +253,5 @@ No LLD \= Having the floor plan but no construction details
 
 **Real-world parallel:**
 
-* Planning a road trip: HLD \= Route from NYC to LA, stop in Chicago and Denver
-* LLD \= Exact highways (I-80 West), exit numbers (Exit 126B), gas stations every 200 miles
+* Planning a road trip: HLD = Route from NYC to LA, stop in Chicago and Denver
+* LLD = Exact highways (I-80 West), exit numbers (Exit 126B), gas stations every 200 miles

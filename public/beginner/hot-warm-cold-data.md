@@ -82,7 +82,7 @@ Storage Choice:
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Ideal: RAM cache \+ SSD
+Ideal: RAM cache + SSD
 
 Why: Need instant access
 
@@ -277,7 +277,7 @@ When you upload a photo to instagram
 
 Day 0-7: HOT 🔥
 
-Location: CDN (remember Amazon Cloudfront from the diagram) \+ SSD cache
+Location: CDN (remember Amazon Cloudfront from the diagram) + SSD cache
 
 Why: 90% of views happen in first week
 
@@ -301,7 +301,7 @@ Storage: Standard redundancy
 
 Cost per GB: $0.023/month
 
-User experience: \~200ms load time
+User experience: ~200ms load time
 
 Month 4+: COLD ❄️
 
@@ -315,7 +315,7 @@ Storage: Automatic tier adjustment
 
 Cost per GB: $0.01/month
 
-User experience: \~500ms first access
+User experience: ~500ms first access
 
 Year 2+: FROZEN 🧊
 
@@ -345,17 +345,17 @@ If ALL photos were to be  stored HOT:
 
 - 730,000 TB per year
 
-- Cost: $365,000/day \= $133M/year 😱
+- Cost: $365,000/day = $133M/year 😱
 
 With temperature-based storage:
 
-- Recent (HOT): 14,000 TB × $0.50 \= $7,000/day
+- Recent (HOT): 14,000 TB × $0.50 = $7,000/day
 
-- Warm: 100,000 TB × $0.023 \= $2,300/day
+- Warm: 100,000 TB × $0.023 = $2,300/day
 
-- Cold: 616,000 TB × $0.001 \= $616/day
+- Cold: 616,000 TB × $0.001 = $616/day
 
-- Total: $10,000/day \= $3.6M/year ✓
+- Total: $10,000/day = $3.6M/year ✓
 
 Savings: $129M/year (97% reduction!)
 
@@ -387,13 +387,13 @@ Total data: 100 TB
 
 Naive approach (all hot storage):
 
-- 100 TB × $0.10/GB \= $10,000/month
+- 100 TB × $0.10/GB = $10,000/month
 
 Optimized approach:
 
-- 20 TB hot × $0.10/GB \= $2,000/month
+- 20 TB hot × $0.10/GB = $2,000/month
 
-- 80 TB cold × $0.01/GB \= $800/month
+- 80 TB cold × $0.01/GB = $800/month
 
 - Total: $2,800/month
 
@@ -417,7 +417,7 @@ Question 1: How often is it accessed?
 
 Question 2: How fast must it load?
 
-├─ \<100ms → HOT (SSD \+ cache)
+├─ \<100ms → HOT (SSD + cache)
 
 ├─ \<1s → WARM (Standard storage)
 
@@ -478,7 +478,7 @@ WARM 🌤️ (40% of catalog, 9% of views):
 
 ├─ Storage: Regional data centers
 
-├─ Latency: \~200ms
+├─ Latency: ~200ms
 
 └─ Cost: Moderate
 
@@ -492,7 +492,7 @@ COLD ❄️ (50% of catalog, 1% of views):
 
 ├─ Storage: Central S3
 
-├─ Latency: \~1s (if not cached)
+├─ Latency: ~1s (if not cached)
 
 └─ Cost: Very low
 
@@ -638,7 +638,7 @@ Layer 3: Media Storage - Recent (HOT 🔥)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-[S3 Standard \+ CloudFront CDN]
+[S3 Standard + CloudFront CDN]
 
 - Type: Object Storage
 
@@ -773,7 +773,7 @@ If everything was HOT storage:
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-1,853 TB × $0.10/GB \= $185,300/month 😱
+1,853 TB × $0.10/GB = $185,300/month 😱
 
 Actual cost: $7,850/month ✓
 Savings: $177,450/month (96% reduction!)
@@ -881,7 +881,7 @@ Answer framework:
    * User sessions → RAM cache
    * Active records → SSD database
 2. "Then categorize data by access patterns..."
-   * Daily access → Hot (SSD \+ cache)
+   * Daily access → Hot (SSD + cache)
    * Weekly/monthly → Warm (Standard storage)
    * Yearly/never → Cold (Archive)
 3. "Choose appropriate storage types..."

@@ -261,7 +261,7 @@ Speed: VERY FAST ⚡
 
 - Direct access to blocks
 
-- Low latency (\~1ms)
+- Low latency (~1ms)
 
 - High IOPS (Input/Output Operations Per Second)
 
@@ -326,7 +326,7 @@ When you save "Resume.pdf":
 2. Stores metadata:
 
 
-|   - Size: 245KB   - Created: 2025-10-19   - Modified: 2025-10-19   - Permissions: Read/Write   - Owner: YourName |
+|   - Size: 245KB<br>   - Created: 2025-10-19<br>   - Modified: 2025-10-19<br>   - Permissions: Read/Write<br>   - Owner: YourName |
 | :---- |
 
 3. Allocates blocks (under the hood!):
@@ -439,7 +439,7 @@ Code example:
  }
  })
 
-// Server 2 (immediately sees it\!)
+// Server 2 (immediately sees it!)
 js
  import fs from "fs"
  file=fs.readFile('/var/www/html/images/new-photo.jpg');
@@ -461,7 +461,7 @@ Speed: FAST (but slower than block)
 
 - Need to traverse directory structure
 
-- Latency: \~10ms (network file systems)
+- Latency: ~10ms (network file systems)
 
 - Good throughput for sequential reads
 
@@ -498,17 +498,17 @@ No folders are involved ! Just objects with unique IDs:
  {
  Object 1: ,
  ID: 7f8e9a2b-3c4d-5e6f-7g8h-9i0j1k2l3m4n,
- Data: \[binary data of photo\],
+ Data: [binary data of photo],
  Metadata:
       key: "user-photos/john/vacation/beach.jpg",    content-type: "image/jpeg",
       size: 2.5MB,
-      uploaded: 2025\-10\-19
+      uploaded: 2025-10-19
       tags: {user: "john", type: "photo"},
 },
 {
 Object 2,
   ID: a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6,
-  Data: [binary data of video\],
+  Data: [binary data of video],
   Metadata:
     key: "videos/2024/birthday.mp4"  ,
     content-type: "video/mp4",
@@ -535,7 +535,7 @@ It's all flat!
 
 Think of it like hashtags:
 
-| /user-photos/john/vacation/beach.jpg#user-photos-john-vacation-beach.jpg |
+| /user-photos/john/vacation/beach.jpg<br>#user-photos-john-vacation-beach.jpg |
 | :---- |
 
 So what are the "folders" in the  S3 console you may ask ?  It’s just for  UI convenience!
@@ -622,7 +622,7 @@ Object Storage Performance:
 
 Speed: SLOWER ( block storage is optimized for throughput, not latency)
 
-- Latency: \~100ms first byte
+- Latency: ~100ms first byte
 
 - High throughput: GB/s for large files
 
@@ -653,7 +653,7 @@ BUT:
 
 - Global accessibility ✓
 
-Cost: VERY CHEAP (\~$0.023/GB/month for S3)
+Cost: VERY CHEAP (~$0.023/GB/month for S3)
 
 **Connection to REST APIs:**
 Object storage is accessed via HTTP REST APIs! Remember GET, PUT, DELETE? That's how you interact with S3. Each object has a URL!

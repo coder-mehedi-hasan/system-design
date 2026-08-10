@@ -83,8 +83,8 @@ IP breaks the large packet into smaller pieces:
 
 **Calculate with me:**
 
-* Each number: 0-255 \= 256 possibilities
-* Four numbers: 256 × 256 × 256 × 256 \= **4.3 billion addresses**
+* Each number: 0-255 = 256 possibilities
+* Four numbers: 256 × 256 × 256 × 256 = **4.3 billion addresses**
 
 **Question:** With 8+ billion people on Earth and multiple devices per person (phone, laptop, tablet, smartwatch, IoT devices), do we have enough IPv4 addresses?
 
@@ -101,8 +101,8 @@ IPv4 is running out! IPv6 was created with **128-bit addresses** (vs IPv4's 32-b
 
 **Analogy shift:**
 
-* IPv4 \= 10-digit phone numbers (running out of combinations)
-* IPv6 \= 39-digit phone numbers (essentially unlimited)
+* IPv4 = 10-digit phone numbers (running out of combinations)
+* IPv6 = 39-digit phone numbers (essentially unlimited)
 
 ---
 
@@ -167,7 +167,7 @@ Every IP packet has a **hop counter** (TTL):
 
 1. Source IP Address
 2. Destination IP Address
-3. Protocol (e.g., 6 \= TCP, 17 \= UDP)
+3. Protocol (e.g., 6 = TCP, 17 = UDP)
 4. TTL (Time to Live)
 5. Total Length
 

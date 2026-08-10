@@ -12,7 +12,7 @@
 
 **How it works:**
 
-Step 1: Client sends username \+ password
+Step 1: Client sends username + password
        Username: "john"
        Password: "secret123"
 
@@ -61,19 +61,19 @@ Step 1: Login
        Body: { "username": "john", "password": "secret123" }
 
        Server verifies and creates session
-       Session ID: "sess\_abc123xyz"
-       Stores in database: { sess\_abc123xyz: { user\_id: 42 } }
+       Session ID: "sess_abc123xyz"
+       Stores in database: { sess_abc123xyz: { user_id: 42 } }
 
 Step 2: Server sends back session cookie
        200 OK
-       Set-Cookie: session\_id=sess\_abc123xyz; HttpOnly; Secure
+       Set-Cookie: session_id=sess_abc123xyz; HttpOnly; Secure
 
 Step 3: Browser automatically sends cookie with future requests
        GET /api/posts
-       Cookie: session\_id=sess\_abc123xyz
+       Cookie: session_id=sess_abc123xyz
 
        Server looks up session in database
-       Finds user\_id: 42
+       Finds user_id: 42
        Returns: 200 OK with data
 
 Step 4: Logout
@@ -132,7 +132,7 @@ Step 2: Server creates JWT token
 
        Payload:
 ```json
-       { "user\_id": 42, "username": "john", "exp": 1730000000 }
+       { "user_id": 42, "username": "john", "exp": 1730000000 }
 ```
        Server signs it with secret key
 
@@ -159,7 +159,7 @@ Step 4: Client sends token with each request
 
        Server verifies signature (no database lookup!)
 
-       Reads user\_id from payload
+       Reads user_id from payload
 
        Returns: 200 OK with data
 
@@ -169,7 +169,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9  ← Header (algorithm)
 .
 eyJ1c2VyX2lkIjo0MiwidXNlcm5hbWUiOiJqb2huIn0  ← Payload (data)
 .
-SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV\_adQssw5c  ← Signature (verification)
+SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c  ← Signature (verification)
 
 **Visual representation:**
 

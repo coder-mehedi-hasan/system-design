@@ -43,7 +43,7 @@ ALL OF THEM! You use different storage based on frequency of access and size!
 ### **🏔️ The Memory Pyramid**
 
 THE MEMORY HIERARCHY
-(Top \= Fastest/Smallest, Bottom \= Slowest/Largest)
+(Top = Fastest/Smallest, Bottom = Slowest/Largest)
 
 ![img12](https://res.cloudinary.com/dretwg3dy/image/upload/v1762355306/page35_gbmyot.png)
 
@@ -81,7 +81,7 @@ The difference is MASSIVE!
 
 Location: Inside the CPU itself
 
-Size: \~16-32 registers × 64 bits \= 100-200 bytes
+Size: ~16-32 registers × 64 bits = 100-200 bytes
 
 Speed: 0.3 nanoseconds (one CPU cycle)
 
@@ -108,7 +108,7 @@ Think of it as: Calculator display showing current number
 
 Location: On the CPU chip, closest to cores
 Size: 32-64 KB per core
-Speed: 4 cycles (\~1 nanosecond)
+Speed: 4 cycles (~1 nanosecond)
 
 Split into two parts:
 
@@ -129,7 +129,7 @@ Think of it as: Items on your desk within arm's reach
 
 Location: On CPU chip, still very close
 Size: 256-512 KB per core
-Speed: 12 cycles (\~3 nanoseconds)
+Speed: 12 cycles (~3 nanoseconds)
 
 Holds:
 
@@ -153,7 +153,7 @@ Think of it as: Drawer under your desk
 
 Location: On CPU chip, shared by all cores
 Size: 8-64 MB (entire chip)
-Speed: 40 cycles (\~15 nanoseconds)
+Speed: 40 cycles (~15 nanoseconds)
 
 Shared resource:
 
@@ -316,14 +316,14 @@ Status: RAM HIT
 
 Step 5: Update Caches (for next time)
 ────────────────────────
-Copy value to L3: Address 0x1234 \= 42
-Copy value to L2: Address 0x1234 \= 42
-Copy value to L1: Address 0x1234 \= 42
+Copy value to L3: Address 0x1234 = 42
+Copy value to L2: Address 0x1234 = 42
+Copy value to L1: Address 0x1234 = 42
 
 Next time CPU needs 0x1234:
 ────────────────────────
 CPU: "Is address 0x1234 in L1?"
-L1: "YES! Value \= 42" ✓
+L1: "YES! Value = 42" ✓
 Time taken: 1 nanosecond
 
 119x faster the second time! 🚀
@@ -342,22 +342,22 @@ L3 Cache: 70% hit rate (of L2 misses)
 Example with 1000 memory accesses:
 
 950 found in L1 (1 ns each)
-  \= 950 ns
+  = 950 ns
 
 40 found in L2 (3 ns each)
-  \= 120 ns
+  = 120 ns
 
 21 found in L3 (15 ns each)
-  \= 315 ns
+  = 315 ns
 
 10 found in RAM (100 ns each)
-  \= 1000 ns
+  = 1000 ns
 
 Total: 2,385 ns for 1000 accesses
 Average: 2.4 ns per access!
 
 Without caches (all from RAM):
-1000 × 100 ns \= 100,000 ns
+1000 × 100 ns = 100,000 ns
 
 CACHE MAKES IT 42x FASTER! 🚀
 
@@ -377,15 +377,15 @@ Problem 1: PHYSICAL SPACE
 
 ├─ Disc size is limited
 
-└─ Larger cache \= less room for cores
+└─ Larger cache = less room for cores
 
 Problem 2: SPEED TRADEOFF
 
-├─ Larger cache \= more area to search
+├─ Larger cache = more area to search
 
-├─ More area \= longer wires
+├─ More area = longer wires
 
-└─ Longer wires \= SLOWER access!
+└─ Longer wires = SLOWER access!
 
 Problem 3: COST
 ├─ Cache memory is extremely expensive
@@ -442,7 +442,7 @@ THE COMPLETE PICTURE:
 
 Why this hierarchy exists:
 
-🏃 FAST \+ SMALL \+ EXPENSIVE
+🏃 FAST + SMALL + EXPENSIVE
 
    ↕️ Registers: Instant but microscopic
 
@@ -452,7 +452,7 @@ Why this hierarchy exists:
 
    ↕️ L3 Cache: Fast, medium
 
-🐢 SLOW \+ LARGE \+ CHEAP
+🐢 SLOW + LARGE + CHEAP
 
    ↕️ RAM: Decent, large
 

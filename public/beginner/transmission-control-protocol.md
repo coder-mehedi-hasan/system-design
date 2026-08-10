@@ -43,9 +43,9 @@ TCP does exactly this before sending data:
 
 **Key terms decoded:**
 
-* **SYN** (Synchronize) \= "I want to connect"
-* **ACK** (Acknowledge) \= "I received your message"
-* **SYN-ACK** \= "I want to connect too, and I got your request"
+* **SYN** (Synchronize) = "I want to connect"
+* **ACK** (Acknowledge) = "I received your message"
+* **SYN-ACK** = "I want to connect too, and I got your request"
 
 ---
 
@@ -98,8 +98,8 @@ A. The packet is discarded, and the connection continues without it
 
 **Real-world parallel:** When tracking your package:
 
-* **Timeout** \= "It should've arrived by now, let's resend"
-* **Duplicate ACKs** \= "The customer keeps calling saying it never arrived, send another now!"
+* **Timeout** = "It should've arrived by now, let's resend"
+* **Duplicate ACKs** = "The customer keeps calling saying it never arrived, send another now!"
 
 ---
 

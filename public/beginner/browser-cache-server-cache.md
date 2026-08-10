@@ -26,7 +26,7 @@
 
 ### **The Answer: Multi-Layer Caching!**
 
-Browser Cache \= Customer's pocket (local storage) Server Cache \= Shop counter (shared cache) Database \= Warehouse (source of truth)
+Browser Cache = Customer's pocket (local storage) Server Cache = Shop counter (shared cache) Database = Warehouse (source of truth)
 
 ---
 
@@ -71,7 +71,7 @@ Browser → Check local cache → Expired!
 Browser → "Is style.css still current?" → Server
 Server → "Yes, use cached version" → Browser (304 Not Modified)
          OR
-Server → "New version available" → Browser (200 \+ new file)
+Server → "New version available" → Browser (200 + new file)
 
 ---
 
@@ -88,9 +88,9 @@ Linux: ~/.cache/mozilla/firefox/ |
 ```
 Size limits:
 
-- Chrome: \~10% of disk space
+- Chrome: ~10% of disk space
 
-- Firefox: \~1 GB (configurable)
+- Firefox: ~1 GB (configurable)
 
 - Safari: No fixed limit
 
@@ -152,16 +152,16 @@ res.setHeader('Cache-Control', 'no-store');
 ```js
 async function getUser(userId) {
 // 1. Check server cache first
-let user = await redis.get(\`user:${userId}\`);
+let user = await redis.get(`user:${userId}`);
 if (user) {
   console.log('✅ Server cache HIT');
   return JSON.parse(user);  // 2ms
 }
 // 2  Cache miss - query database
  console.log('❌ Server cache MISS');
- user = await database.query('SELECT * FROM users WHERE id \= ?', [userId]);
+ user = await database.query('SELECT * FROM users WHERE id = ?', [userId]);
  // 3 Store in cache for next request
- await redis.setex(\`user:${userId}\`, 3600, JSON.stringify(user));
+ await redis.setex(`user:${userId}`, 3600, JSON.stringify(user));
  return user;  // 100ms (first time only)
  }
  ````
@@ -198,8 +198,8 @@ TOTAL PAGE LOAD:
 
 ### **🛠️ Complete Implementation Example**
 
-## **Browser \+ Server \+ CDN caching:**
-## **SERVER SIDE (Node.js \+ Express \+ Redis)**
+## **Browser + Server + CDN caching:**
+## **SERVER SIDE (Node.js + Express + Redis)**
 ```js
 const express = require('express');
 const redis = require('redis');
@@ -234,13 +234,14 @@ const cacheClient = redis.createClient();
  // Route: Product list
   app.get('/products', cacheMiddleware, async (req, res) => {
   // This only runs on cache miss
-  const products = await database.query('SELECT \* FROM products');
+  const products = await database.query('SELECT * FROM products');
   res.json(products);
   });
   // Static assets: Long browser cache
   app.use('/static', express.static('public', {  maxAge: '1y',
   // Browser cache for 1 year
-  immutable: true}))
+  immutable: true
+}))
   ````html
 
  < -- CLIENT SIDE (HTML)>
@@ -267,10 +268,10 @@ const cacheClient = redis.createClient();
          </div>
          <script>    // Fetch with cache control
          fetch('/products', {      cache: 'default'
-          // Use browser cache if available
+          // Use browser cache if available
           }).then(r => r.json()).then(products => {
          // Render products
-        document.getElementById('products').innerHTML =  products.map(p => `<div>${p.name}\</div>`).join('');});
+        document.getElementById('products').innerHTML =  products.map(p => `<div>${p.name}\</div>`).join('');});
         </script>
         </body>
  </html>
@@ -318,14 +319,14 @@ Cache-Control: no-store
 
 ### **🔥 Advanced: Service Workers (Programmable Cache)**
 
-**Service Workers \= Custom caching logic in browser**
+**Service Workers = Custom caching logic in browser**
 ```js
 
 | // sw.js (Service Worker)
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open('v1').then((cache) => {
   // Pre-cache critical assets
-    return cache.addAll(\[ '/','/style.css',        '/app.js', '/logo.png']);
+    return cache.addAll([ '/','/style.css',        '/app.js', '/logo.png']);
     }) );})
     self.addEventListener('fetch', (event) => {
       event.respondWith(caches.match(event.request).then((response) => {
@@ -376,19 +377,19 @@ self.addEventListener('install', (event) => {
 
 1000 requests:
 
-├─ 700 served by browser cache (0ms each) \= 0 seconds
+├─ 700 served by browser cache (0ms each) = 0 seconds
 
-├─ 200 served by CDN cache (20ms each) \= 4 seconds
+├─ 200 served by CDN cache (20ms each) = 4 seconds
 
-├─ 80 served by server cache (5ms each) \= 0.4 seconds
+├─ 80 served by server cache (5ms each) = 0.4 seconds
 
-└─ 20 served by database (100ms each) \= 2 seconds
+└─ 20 served by database (100ms each) = 2 seconds
 
 Total time: 6.4 seconds for 1000 requests
 Average: 6.4ms per request ⚡
 
 Without caching:
-1000 requests × 100ms \= 100 seconds ⏱️
+1000 requests × 100ms = 100 seconds ⏱️
 (15x slower!)
 
 ---
@@ -413,7 +414,7 @@ Without caching:
 
 1. **Caching stores frequently accessed data in fast storage (memory) instead of slow storage (disk/network).** It's faster because memory access takes nanoseconds while disk/network takes milliseconds - a 1000-10,000x difference!
 
-2. **Cache hit \= data found in cache (fast). Cache miss \= data not in cache, must fetch from source (slow).** Hits are better! High hit ratio (85%+) means your cache is working well.
+2. **Cache hit = data found in cache (fast). Cache miss = data not in cache, must fetch from source (slow).** Hits are better! High hit ratio (85%+) means your cache is working well.
 
 3. **LRU removes the least recently used item.** Mental model: If you haven't used it recently, you probably won't need it soon. Use LRU for general-purpose caching - it's the best balance of performance and simplicity for most workloads.
 

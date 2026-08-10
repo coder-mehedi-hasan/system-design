@@ -24,14 +24,14 @@
 
 **The Answer:** YES! Computers do exactly this with electricity:
 
-BINARY \= The language of ON and OFF
+BINARY = The language of ON and OFF
 
 
 Physical reality in computer:
 
-  i) Voltage HIGH (5 volts) \= 1 (ON)
+  i) Voltage HIGH (5 volts) = 1 (ON)
 
- ii) Voltage LOW (0 volts)  \= 0 (OFF)
+ ii) Voltage LOW (0 volts)  = 0 (OFF)
 
 Everything in your computer is just:
 
@@ -74,7 +74,7 @@ But from these simple 0s and 1s, we get:
 
 2️⃣ BYTE (8 Bits)
    Basic unit of storage
-   8 bits \= 1 byte
+   8 bits = 1 byte
 
    Example: 01001000
 
@@ -152,11 +152,11 @@ But from these simple 0s and 1s, we get:
    1 PB ≈ 1 quadrillion bytes
 
    Examples:
-    Netflix's entire library: \~100 PB
+    Netflix's entire library: ~100 PB
 
     Large company data center: 10 PB
 
-    Facebook's daily data: \~4 PB
+    Facebook's daily data: ~4 PB
 
 
 **The Scale Visualization:**
@@ -188,7 +188,7 @@ DECIMAL SYSTEM (Base 10):
 Positions:  1000s  100s  10s  1s
 Number:        2     5    6   3
 
-2×1000 \+ 5×100 \+ 6×10 \+ 3×1 \= 2563
+2×1000 + 5×100 + 6×10 + 3×1 = 2563
 
 We use 10 digits: 0,1,2,3,4,5,6,7,8,9
 
@@ -198,7 +198,7 @@ BINARY SYSTEM (Base 2):
 Positions:  8s  4s  2s  1s
 Number:      1   0   1   1
 
-1×8 \+ 0×4 \+ 1×2 \+ 1×1 \= 11 (decimal)
+1×8 + 0×4 + 1×2 + 1×1 = 11 (decimal)
 
 We use 2 digits: 0, 1
 
@@ -207,21 +207,21 @@ EXAMPLES:
 
 Binary → Decimal:
 
-0001 \= 1
+0001 = 1
 
-0010 \= 2
+0010 = 2
 
-0011 \= 3
+0011 = 3
 
-0100 \= 4
+0100 = 4
 
-0101 \= 5
+0101 = 5
 
-0110 \= 6
+0110 = 6
 
-0111 \= 7
+0111 = 7
 
-1000 \= 8
+1000 = 8
 
 Pattern: Each position doubles!
 
@@ -229,21 +229,21 @@ Pattern: Each position doubles!
 
    ↓  ↓  ↓  ↓
 
-   1  0  1  1  \= 8 \+ 2 \+ 1 \= 11
+   1  0  1  1  = 8 + 2 + 1 = 11
 
    16 8  4  2  1
 
    ↓  ↓  ↓  ↓  ↓
 
-   1  0  0  1  1  \= 16 \+ 2 \+ 1 \= 19
+   1  0  0  1  1  = 16 + 2 + 1 = 19
 
 **Try these yourself:**
 
-Binary 1111 \= ?
+Binary 1111 = ?
 
-Binary 1010 \= ?
+Binary 1010 = ?
 
-Binary 0110 \= ?
+Binary 0110 = ?
 
 (Answers below)
 
@@ -251,11 +251,11 @@ Binary 0110 \= ?
 
 **ANSWERS:**
 
-Binary 1111 \= 8 \+ 4 \+ 2 \+ 1 \= 15
+Binary 1111 = 8 + 4 + 2 + 1 = 15
 
-Binary 1010 \= 8 \+ 0 \+ 2 \+ 0 \= 10
+Binary 1010 = 8 + 0 + 2 + 0 = 10
 
-Binary 0110 \= 0 \+ 4 \+ 2 \+ 0 \= 6
+Binary 0110 = 0 + 4 + 2 + 0 = 6
 
 ---
 
@@ -265,7 +265,7 @@ Binary 0110 \= 0 \+ 4 \+ 2 \+ 0 \= 6
 
 ASCII ENCODING:
 
-Each letter \= 1 byte (8 bits)
+Each letter = 1 byte (8 bits)
 
 Letter  →  Decimal  →  Binary
 
@@ -304,9 +304,9 @@ o → 111 → 01101111
 
 b → 98 → 01100010
 
-"Bob" \= 01000010 01101111 01100010
+"Bob" = 01000010 01101111 01100010
 
-3 letters \= 3 bytes of storage
+3 letters = 3 bytes of storage
 
 ---
 
@@ -314,7 +314,7 @@ b → 98 → 01100010
 
 COLOR ENCODING:
 
-Every pixel on your screen \= 3 bytes (24 bits)
+Every pixel on your screen = 3 bytes (24 bits)
 
 Red: 1 byte (0-255)
 
@@ -375,37 +375,37 @@ B: 0   (00000000)
 **Black pixel**
 
 Your 1920×1080 monitor:
-\= 2,073,600 pixels × 3 bytes per pixel \= 6,220,800 bytes ≈ 6 MB for ONE FRAME!
+= 2,073,600 pixels × 3 bytes per pixel = 6,220,800 bytes ≈ 6 MB for ONE FRAME!
 
 At 60 FPS:
-6 MB × 60 \= 360 MB per second!
+6 MB × 60 = 360 MB per second!
 (This is why graphics cards need fast memory!)
 
 ---
 
 ### **🚨 Common Misconception: "KB, MB, GB are Exact Thousands"**
 
-**You might think:** "1 KB \= 1,000 bytes exactly"
+**You might think:** "1 KB = 1,000 bytes exactly"
 
 **The Reality:** It's actually 1,024!
 
 **❌ MARKETING NUMBERS (Decimal):**
-1 KB \= 1,000 bytes
+1 KB = 1,000 bytes
 
-1 MB \= 1,000 KB \= 1,000,000 bytes
+1 MB = 1,000 KB = 1,000,000 bytes
 
-1 GB \= 1,000 MB \= 1,000,000,000 bytes
+1 GB = 1,000 MB = 1,000,000,000 bytes
 
 (Hard drive manufacturers use this!)
 
 
 **✅ COMPUTER NUMBERS (Binary):**
 
-1 KB \= 1,024 bytes (2¹⁰)
+1 KB = 1,024 bytes (2¹⁰)
 
-1 MB \= 1,024 KB \= 1,048,576 bytes (2²⁰)
+1 MB = 1,024 KB = 1,048,576 bytes (2²⁰)
 
-1 GB \= 1,024 MB \= 1,073,741,824 bytes (2³⁰)
+1 GB = 1,024 MB = 1,073,741,824 bytes (2³⁰)
 
 (Computer systems use this!)
 
@@ -414,11 +414,11 @@ At 60 FPS:
 
 Computers think in powers of 2:
 
-2¹⁰ \= 1,024 (close to 1,000)
+2¹⁰ = 1,024 (close to 1,000)
 
-2²⁰ \= 1,048,576 (close to 1 million)
+2²⁰ = 1,048,576 (close to 1 million)
 
-2³⁰ \= 1,073,741,824 (close to 1 billion)
+2³⁰ = 1,073,741,824 (close to 1 billion)
 
 THE RESULT:
 
@@ -455,7 +455,7 @@ Each pixel → RGB values → binary
 
 **Videos:**
 
-Movie.mp4 → Sequence of images \+ audio
+Movie.mp4 → Sequence of images + audio
 
 Each frame → pixels → binary
 
@@ -484,7 +484,7 @@ patterns of 0s and 1s!
 This entire article you're reading:
 - Every letter: 1 byte
 
-- Total: \~50,000 characters \= 50 KB
+- Total: ~50,000 characters = 50 KB
 
 - In binary: 400,000 bits
 

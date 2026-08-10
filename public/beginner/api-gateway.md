@@ -62,7 +62,8 @@ Imagine you're building a food delivery app. Here's what happens when a user wan
 **Step 1: Client Makes Request**
 
 ```bash
- GET https://api.foodapp.com/ordersAuthorization: Bearer user_token_xyz
+ GET https://api.foodapp.com/orders
+Authorization: Bearer user_token_xyz
  ```
 
 
@@ -82,7 +83,7 @@ Gateway thinks:
 
    → Checks token with Auth service
 
-   → Token is valid for user\_id: 12345 ✓
+   → Token is valid for user_id: 12345 ✓
 
 2. Authorization Check:
    "Is this user allowed to access orders?"
@@ -170,7 +171,7 @@ X-RateLimit-Remaining: 54
 
 ```json
 
-{  "orders": \[    {"id": 1, "restaurant": "Pizza Palace", "total": 25.99},    {"id": 2, "restaurant": "Burger Barn", "total": 18.50}  \]} |
+{  "orders": [    {"id": 1, "restaurant": "Pizza Palace", "total": 25.99},    {"id": 2, "restaurant": "Burger Barn", "total": 18.50}  ]} |
 ```
 
 

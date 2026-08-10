@@ -190,7 +190,7 @@ Problem: Users can't resolve your domain
 
 Impact: Website unreachable
 
-Fix: Multiple DNS providers (Route53 \+ Cloudflare)
+Fix: Multiple DNS providers (Route53 + Cloudflare)
 
 SPOF #2: Load Balancer
 
@@ -208,7 +208,7 @@ SPOF #3: The Servers (as a group)
 
 Problem: All in same data center
 
-Impact: Data center outage \= total failure
+Impact: Data center outage = total failure
 
 Fix: Multi-region deployment
 
@@ -248,7 +248,7 @@ Cost: $500/month
 
 Downtime risk: 2 hours/year
 
-Lost revenue: $230/hour \= $460/year
+Lost revenue: $230/hour = $460/year
 
 Total cost: $6,460/year
 
@@ -256,7 +256,7 @@ Option B:
 
 Database Cluster (No SPOF)
 
-Cost: $3,000/month \= $36,000/year
+Cost: $3,000/month = $36,000/year
 
 Downtime risk: 5 minutes/year
 
@@ -274,13 +274,13 @@ Option A:
 
 Single Database
 
-Lost revenue: $23,000/hour × 2 hours \= $46,000/year
+Lost revenue: $23,000/hour × 2 hours = $46,000/year
 
 Option B: Database Cluster
 
 Extra cost: $36,000/year
 
-Savings: $46,000 - $20 \= $45,980
+Savings: $46,000 - $20 = $45,980
 
 Now the extra $36,000 is worth it! ✓
 

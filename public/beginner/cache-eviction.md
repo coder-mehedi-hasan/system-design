@@ -89,7 +89,7 @@ When cache is full, we need rules for what to remove. Let's explore each!
 
     this.cache.delete(firstKey);
 
-    console.log(\`Evicted: ${firstKey} (LRU)\`);
+    console.log(`Evicted: ${firstKey} (LRU)`);
   }
   //Add new entry at end
   function most_recent()
@@ -103,13 +103,14 @@ When cache is full, we need rules for what to remove. Let's explore each!
 
 const lru = new LRUCache(3)
 
-lru.set('A', 1);  // Cache: \[A\]
+lru.set('A', 1);  // Cache: [A]
 
-lru.set('B', 2);  // Cache: \[A, B\]
 
-lru.set('C', 3);  // Cache: \[A, B, C\]
+lru.set('B', 2);  // Cache: [A, B]
 
-lru.get('A');     // Cache: \[B, C, A\]
+lru.set('C', 3);  // Cache: [A, B, C]
+
+lru.get('A');     // Cache: [B, C, A]
 
 //(A moved to end)
 
@@ -120,7 +121,7 @@ lru.set('D', 4);
 
 **When LRU works best:**
 
-✅ In the cases of temporal locality i.e. whenever the most recent data is most likely to  be used  (recent \= likely to reuse)
+✅ In the cases of temporal locality i.e. whenever the most recent data is most likely to  be used  (recent = likely to reuse)
 
 ✅ In case of user sessions on a website recent activity by the user says that he is still logged in and actively using the website whereas the user who hasn’t had activity is more likely to log out or his/her session is going to expire  (recent activity matters)
 
@@ -238,7 +239,7 @@ LFU keeps old item, evicts new trending item! ❌
 Solution: Use "Time-aware LFU" with decay
   - Reduce frequency counts over time
 
-  - Or use LRU \+ LFU hybrid
+  - Or use LRU + LFU hybrid
 
 ---
 
@@ -270,14 +271,14 @@ Solution: Use "Time-aware LFU" with decay
     }
   set(key, value) {
     // If full and key doesn't exist, remove oldest
-    if (this.cache.size>= this.capacity && \!this.cache.has(key)) {
+    if (this.cache.size>= this.capacity && !this.cache.has(key)) {
 
       const oldestKey = this.queue.shift();  //Removefirst
       this.cache.delete(oldestKey);
       console.log(`Evicted: ${oldestKey} (FIFO - oldest)`);
   }
   // If new key, add to queue
-  if (\!this.cache.has(key)) {
+  if (!this.cache.has(key)) {
     this.queue.push(key)
   }
   this.cache.set(key, value);
@@ -291,7 +292,7 @@ fifo.set('C', 3);  // Queue: [A, B, C]
 fifo.get('A');     // Queue unchanged: [A, B, C]
 
 fifo.get('A');     // Still unchanged (FIFO doesn't care about access)
-fifo.set('D', 4);  // Queue: \[B, C, D\] (A evicted \- oldest) |
+fifo.set('D', 4);  // Queue: [B, C, D] (A evicted - oldest) |
 ```
 
 
@@ -345,7 +346,7 @@ Examples:
  Access A: [A(1)]
  Access B: [A(1), B(1)]
  Access C: [A(1), B(1), C(1)]
- Access D: [A(1), C(1), D(1)] (Evict B \- break tie by order)
+ Access D: [A(1), C(1), D(1)] (Evict B - break tie by order)
  Access E:[A(1), D(1), E(1)] (Evict C)
  Access A: [A(2), D(1), E(1)] (A frequency increases)
  Access B: [A(2), E(1), B(1)] (Evict D - least frequent)
@@ -385,9 +386,9 @@ LRU wins most scenarios! ✓
 
 | Policy | Get Complexity | Set Complexity | Implementation |
 | ----- | ----- | ----- | ----- |
-| LRU | O(1) | O(1) | Moderate (doubly-linked list \+ hash map) |
+| LRU | O(1) | O(1) | Moderate (doubly-linked list + hash map) |
 | LFU | O(1)* | O(log n)* | Complex (multiple data structures) |
-| FIFO | O(1) | O(1) | Simple (queue \+ hash map) |
+| FIFO | O(1) | O(1) | Simple (queue + hash map) |
 
 ---
 

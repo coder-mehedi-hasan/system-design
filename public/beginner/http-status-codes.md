@@ -4,10 +4,10 @@ Status codes are the API's way of saying "Here's what happened with your request
 
 ### **The Universal Pattern:**
 
-* **2xx \= Success** ✅ "All good!"
-* **3xx \= Redirect** ↪️ "Go look over there"
-* **4xx \= Client Error** 🚫 "You messed up"
-* **5xx \= Server Error** 💥 "We messed up"
+* **2xx = Success** ✅ "All good!"
+* **3xx = Redirect** ↪️ "Go look over there"
+* **4xx = Client Error** 🚫 "You messed up"
+* **5xx = Server Error** 💥 "We messed up"
 
 ---
 
@@ -19,7 +19,7 @@ Status codes are the API's way of saying "Here's what happened with your request
 
 **When you see it:** GET, PUT, PATCH requests succeeded
 
-| GET /posts/42Response: 200 OKBody: { "id": 42, "title": "Hello World" } |
+| GET /posts/42<br>Response: 200 OK<br>Body: { "id": 42, "title": "Hello World" }<br> |
 | :---- |
 
 ---
@@ -30,7 +30,7 @@ Status codes are the API's way of saying "Here's what happened with your request
 
 **When you see it:** POST request successfully created something
 
-| POST /postsResponse: 201 CreatedLocation: /posts/43Body: { "id": 43, "title": "New Post" } |
+| POST /posts<br>Response: 201 Created<br>Location: /posts/43<br>Body: { "id": 43, "title": "New Post" } |
 | :---- |
 
 **Key insight:** Often includes a `Location` header pointing to the new resource!
@@ -43,7 +43,7 @@ Status codes are the API's way of saying "Here's what happened with your request
 
 **When you see it:** DELETE succeeded, or update with no content to return
 
-| DELETE /posts/42Response: 204 No Content(empty body) |
+| DELETE /posts/42<br>Response: 204 No Content<br>(empty body) |
 | :---- |
 
 ---
@@ -56,7 +56,7 @@ Status codes are the API's way of saying "Here's what happened with your request
 
 **Real-world:** A company changes their website address
 
-| GET /old-blogResponse: 301 Moved PermanentlyLocation: /new-blog |
+| GET /old-blog<br>Response: 301 Moved Permanently<br>Location: /new-blog |
 | :---- |
 
 **Browser's reaction:** "I'll automatically go to the new location and remember this forever"
@@ -69,7 +69,7 @@ Status codes are the API's way of saying "Here's what happened with your request
 
 **Real-world:** Maintenance mode, temporary URL changes
 
-| GET /postsResponse: 302 FoundLocation: /maintenance |
+| GET /posts<br>Response: 302 Found<br>Location: /maintenance |
 | :---- |
 
 **Browser's reaction:** "I'll go there now, but I'll try the original URL again next time"
@@ -82,7 +82,7 @@ Status codes are the API's way of saying "Here's what happened with your request
 
 **Real-world:** Caching - you already have the latest version
 
-| GET /posts/42If-None-Match: "etag-12345"Response: 304 Not Modified |
+| GET /posts/42<br>If-None-Match: "etag-12345"<br>Response: 304 Not Modified |
 | :---- |
 
 **Browser's reaction:** "Great! I'll use my cached version"
@@ -99,7 +99,7 @@ Status codes are the API's way of saying "Here's what happened with your request
 
 POST /posts
 
-| Body: { "title": }  ← Invalid JSON!Response: 400 Bad Request{ "error": "Invalid JSON syntax" } |
+| Body: { "title": }  ← Invalid JSON!<br>Response: 400 Bad Request<br>{ "error": "Invalid JSON syntax" } |
 | :---- |
 
 **Mental model:** Like ordering "one of the purple" - what are you asking for?
@@ -112,7 +112,7 @@ POST /posts
 
 **Real-world:** Missing or invalid authentication
 
-| GET /admin/usersResponse: 401 Unauthorized{ "error": "Authentication required" } |
+| GET /admin/users<br>Response: 401 Unauthorized<br>{ "error": "Authentication required" } |
 | :---- |
 
 **Common confusion:** Despite the name, 401 means "NOT AUTHENTICATED" (you haven't identified yourself)
@@ -125,7 +125,7 @@ POST /posts
 
 **Real-world:** Authenticated but lacking permissions
 
-| DELETE /users/adminResponse: 403 Forbidden{ "error": "Insufficient permissions" } |
+| DELETE /users/admin<br>Response: 403 Forbidden<br>{ "error": "Insufficient permissions" } |
 | :---- |
 
 **Key difference from 401:**
@@ -141,7 +141,7 @@ POST /posts
 
 **Real-world:** Resource doesn't exist
 
-| GET /posts/999999Response: 404 Not Found{ "error": "Post not found" } |
+| GET /posts/999999<br>Response: 404 Not Found<br>{ "error": "Post not found" } |
 | :---- |
 
 **Most famous code on the internet!** Everyone's seen this.
@@ -154,7 +154,7 @@ POST /posts
 
 **Real-world:** Duplicate resource, conflicting state
 
-| POST /usersBody: { "email": "existing@email.com" }Response: 409 Conflict{ "error": "Email already exists" } |
+| POST /users<br>Body: { "email": "existing@email.com" }<br>Response: 409 Conflict<br>{ "error": "Email already exists" } |
 | :---- |
 
 ---
@@ -165,7 +165,7 @@ POST /posts
 
 **Real-world:** Rate limiting
 
-| GET /api/data (100th request in 1 minute)Response: 429 Too Many RequestsRetry-After: 60{ "error": "Rate limit exceeded" } |
+| GET /api/data (100th request in 1 minute)<br>Response: 429 Too Many Requests<br>Retry-After: 60<br>{ "error": "Rate limit exceeded" } |
 | :---- |
 
 ---
@@ -178,7 +178,7 @@ POST /posts
 
 **Real-world:** Unhandled exception, code crashed
 
-| GET /postsResponse: 500 Internal Server Error{ "error": "An unexpected error occurred" } |
+| GET /posts<br>Response: 500 Internal Server Error<br>{ "error": "An unexpected error occurred" }<br> |
 | :---- |
 
 **What to do:** Not your fault! Report to developers, try again later.
@@ -191,7 +191,7 @@ POST /posts
 
 **Real-world:** Upstream service failed (database down, microservice timeout)
 
-| GET /postsResponse: 502 Bad Gateway |
+| GET /posts<br>Response: 502 Bad Gateway |
 | :---- |
 
 **Mental model:** Like a chain of dominoes - one service down affects others.
@@ -202,7 +202,7 @@ POST /posts
 
 **Restaurant:** "Closed for maintenance"
 
-| Real-world: Planned maintenance, overloaded serverGET /api/dataResponse: 503 Service UnavailableRetry-After: 3600 |
+| Real-world: Planned maintenance, overloaded server<br>GET /api/data<br>Response: 503 Service Unavailable<br>Retry-After: 3600 |
 | :---- |
 
 ---

@@ -11,14 +11,14 @@
 * Retrieve book (2 minutes)
 * Walk back to front desk (5 minutes)
 * Total: 15 minutes per request
-* Daily time: 15 min × 20 requests \= **300 minutes (5 hours!)**
+* Daily time: 15 min × 20 requests = **300 minutes (5 hours!)**
 
 **Method B: The Smart Approach**
 
 * Keep a copy of popular books at the front desk
 * Student asks → grab from desk (10 seconds!)
 * Total: 10 seconds per request
-* Daily time: 10 sec × 20 requests \= **200 seconds (3 minutes!)**
+* Daily time: 10 sec × 20 requests = **200 seconds (3 minutes!)**
 
 **Question:** Which method serves students better? How much time do you save?
 
@@ -203,7 +203,7 @@ Daily time for 5 items: 25 minutes! ⚡
 
 **The Golden Rule:**
 
-Cache value \= **(Access frequency × Generation cost) / Freshness requirement**
+Cache value = **(Access frequency × Generation cost) / Freshness requirement**
 
 If Cache value > Threshold → Cache it!
 
@@ -217,7 +217,7 @@ If Cache value > Threshold → Cache it!
 app.get('/products', async (req, res) => {
 
   // Query takes 100ms
-  const products = await db.query('SELECT \* FROM products');
+  const products = await db.query('SELECT * FROM products');
 
   res.json(products);}
 
@@ -291,7 +291,7 @@ cache.set('products', data, { ttl: 300 });  // 5 minutes ❌
 
 ```
 
-Mistake 3: Cache Stampede
+Mistake 3: Cache Stampede
 
 PROBLEM: Cache expires, 1000 requests hit database simultaneously
 

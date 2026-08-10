@@ -14,7 +14,7 @@ Let's settle this once and for all with side-by-side comparison:
 
       "Great, let's begin!"
 
-         [3 round trips \= \~150ms delay]
+         [3 round trips = ~150ms delay]
 
 **UDP:**
 
@@ -34,7 +34,7 @@ Packet lost? → Detect → Retransmit → Verify → Success
 
 **UDP:**
 
-Packet lost? → ¯\\\_(ツ)\_/¯ → Continue
+Packet lost? → ¯\\_(ツ)_/¯ → Continue
 
 No guarantees, application handles losses
 
@@ -148,8 +148,8 @@ Receiver: [Drops 90% of packets]
    * Order matters (withdraw before deposit could be catastrophic!)
    * Example: Bank APIs, payment gateways
 3. **UDP Multicast**
-   * Why: One stream to many viewers \= huge bandwidth savings
-   * Live \= timing matters more than perfect frames
+   * Why: One stream to many viewers = huge bandwidth savings
+   * Live = timing matters more than perfect frames
    * Example: IPTV services, live sports streaming
 4. **TCP**
    * Why: Every byte of the game file must arrive intact

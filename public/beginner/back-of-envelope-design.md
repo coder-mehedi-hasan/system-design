@@ -22,19 +22,19 @@ Before we dive in, let's build your mental toolkit with numbers you should memor
 
 ──────────────────────────────────────
 
-Thousand    \=        1,000 \= 10³   \= 1 KB
+Thousand    =        1,000 = 10³   = 1 KB
 
-Million     \=    1,000,000 \= 10⁶   \= 1 MB
+Million     =    1,000,000 = 10⁶   = 1 MB
 
-Billion     \=1,000,000,000 \= 10⁹   \= 1 GB
+Billion     =1,000,000,000 = 10⁹   = 1 GB
 
-Trillion    \=        10¹²          \= 1 TB
+Trillion    =        10¹²          = 1 TB
 
 ⏱️ TIME CONVERSIONS
 
 ──────────────────────────────────────
 
-1 day       \= 86,400 seconds   ≈ 100K seconds (rounded!)
+1 day       = 86,400 seconds   ≈ 100K seconds (rounded!)
 
 1 month     ≈ 2.5 million seconds
 
@@ -45,17 +45,17 @@ Trillion    \=        10¹²          \= 1 TB
 
 ──────────────────────────────────────
 
-Single character \= 1 byte
+Single character = 1 byte
 
-Short tweet \= 280 bytes ≈ 300 bytes
+Short tweet = 280 bytes ≈ 300 bytes
 
-Typical web page \= 100 KB
+Typical web page = 100 KB
 
-YouTube video (1 min) \= 10 MB
+YouTube video (1 min) = 10 MB
 
-High-res photo \= 2 MB
+High-res photo = 2 MB
 
-Movie (1080p, 2hrs) \= 4 GB
+Movie (1080p, 2hrs) = 4 GB
 
 **Mental Model:** These rounded numbers make math easy! 86,400 seconds/day becomes 100K seconds. Close enough for estimates!
 
@@ -104,22 +104,22 @@ Average tweet size: 300 bytes
 
 Tweets per day:
 
-200 million users × 2 tweets \= 400 million tweets/day
+200 million users × 2 tweets = 400 million tweets/day
 
 
 Text storage per day:
 
-400 million tweets × 300 bytes \= 120 GB/day
+400 million tweets × 300 bytes = 120 GB/day
 
 Image storage per day:
 
-400 million tweets × 20% × 2 MB \= 160 TB/day
+400 million tweets × 20% × 2 MB = 160 TB/day
 
 Video storage per day:
 
-400 million tweets × 5% × 10 MB \= 200 TB/day
+400 million tweets × 5% × 10 MB = 200 TB/day
 
-TOTAL per day: 120 GB \+ 160 TB \+ 200 TB ≈ 360 TB/day
+TOTAL per day: 120 GB + 160 TB + 200 TB ≈ 360 TB/day
 
 📅 STEP 4: Extrapolate to yearly
 
@@ -156,7 +156,7 @@ What information do you need?
 
 Netflix subscribers: 250 million
 
-Concurrent viewers (peak time): 10% \= 25 million
+Concurrent viewers (peak time): 10% = 25 million
 
 Average bitrate (1080p video): 5 Mbps
 
@@ -166,11 +166,11 @@ Average bitrate (1080p video): 5 Mbps
 
 Bandwidth needed:
 
-25 million viewers × 5 Mbps \= 125 million Mbps
+25 million viewers × 5 Mbps = 125 million Mbps
 
-\= 125,000 Gbps
+= 125,000 Gbps
 
-\= 125 Tbps (terabits per second)
+= 125 Tbps (terabits per second)
 
 🎯 REALITY CHECK
 
@@ -263,15 +263,15 @@ Assumptions:
 
 Calculation:
 
-Daily searches: 4B × 3 \= 12 billion
+Daily searches: 4B × 3 = 12 billion
 
 Per second: 12B ÷ 100K seconds ≈ 120,000 QPS
 
-Peak: 120K × 2 \= 240,000 QPS
+Peak: 120K × 2 = 240,000 QPS
 
-Answer: \~200,000-300,000 queries per second
+Answer: ~200,000-300,000 queries per second
 
-Reality: Google handles \~100,000 QPS average, \~200,000 peak ✓
+Reality: Google handles ~100,000 QPS average, ~200,000 peak ✓
 
 
 **Challenge B: Zoom Storage**
@@ -286,11 +286,11 @@ Assumptions:
 
 Calculation:
 
-Daily storage: 3B minutes × 1 MB \= 3 PB/day
+Daily storage: 3B minutes × 1 MB = 3 PB/day
 
-Yearly: 3 PB × 365 \= 1,095 PB ≈ 1 exabyte
+Yearly: 3 PB × 365 = 1,095 PB ≈ 1 exabyte
 
-Answer: \~1 exabyte per year
+Answer: ~1 exabyte per year
 
 **Challenge C: Instagram Servers**
 
@@ -306,17 +306,17 @@ Calculation:
 
 Total upload seconds per day:
 
-100M photos × 2 sec \= 200M seconds
+100M photos × 2 sec = 200M seconds
 
 Servers needed:
 
-200M seconds ÷ 86,400 seconds/day \= 2,315 server-days
+200M seconds ÷ 86,400 seconds/day = 2,315 server-days
 
 To handle in 24 hours: 2,315 servers
 
-Add 2x for peak load: \~5,000 servers
+Add 2x for peak load: ~5,000 servers
 
-Answer: \~5,000 servers for uploads
+Answer: ~5,000 servers for uploads
 
 ---
 
@@ -426,7 +426,7 @@ What to estimate:
 
 ✓ Storage (videos)
 
-✓ Bandwidth (uploads \+ downloads)
+✓ Bandwidth (uploads + downloads)
 
 ✓ Servers (processing)
 
@@ -450,26 +450,26 @@ New videos per day: 500,000
 
 ──────────────────────
 
-Video size: 5 min × 5 Mbps ÷ 8 \= 3.75 MB/sec × 300 sec \= 1.1 GB
+Video size: 5 min × 5 Mbps ÷ 8 = 3.75 MB/sec × 300 sec = 1.1 GB
 
 
 New storage per day:
 
-500K videos × 1.1 GB \= 550 TB/day
+500K videos × 1.1 GB = 550 TB/day
 
-Yearly growth: 550 TB × 365 \= 200 PB/year
+Yearly growth: 550 TB × 365 = 200 PB/year
 
 🌐 BANDWIDTH CALCULATION
 
 ────────────────────────
 
-Views per day: 2B users × 10 videos \= 20B views
+Views per day: 2B users × 10 videos = 20B views
 
 Data downloaded per day:
 
-20B × 1.1 GB \= 22,000 PB \= 22 EB/day
+20B × 1.1 GB = 22,000 PB = 22 EB/day
 
-Per second: 22 EB ÷ 100K sec \= 220 TB/sec \= 1,760 Tbps
+Per second: 22 EB ÷ 100K sec = 220 TB/sec = 1,760 Tbps
 
 ⚙️ SERVER CALCULATION
 
@@ -483,7 +483,7 @@ Each video takes 10 minutes to encode
 
 One server encodes 144 videos/day (24 hrs)
 
-Servers needed: 500K ÷ 144 \= 3,500 encoding servers
+Servers needed: 500K ÷ 144 = 3,500 encoding servers
 
 🎯 FINAL ANSWER
 
@@ -491,13 +491,13 @@ Servers needed: 500K ÷ 144 \= 3,500 encoding servers
 
 Storage: 200 PB new per year (+ historical data)
 
-Bandwidth: \~2,000 Tbps (petabits per second!)
+Bandwidth: ~2,000 Tbps (petabits per second!)
 
-Encoding servers: \~4,000
+Encoding servers: ~4,000
 
-Streaming servers: \~50,000 (estimated separately)
+Streaming servers: ~50,000 (estimated separately)
 
-Reality: YouTube stores \~1 exabyte total, uses \~1,000 Tbps
+Reality: YouTube stores ~1 exabyte total, uses ~1,000 Tbps
 
 Our estimates are in the right ballpark! 🎉
 

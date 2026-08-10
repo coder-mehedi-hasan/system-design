@@ -131,7 +131,7 @@ UPDATE accounts SET balance = balance + 500 WHERE name = 'Bob';
 
 -- Check if both succeeded
 
-IF both\_steps\_successful THEN
+IF both_steps_successful THEN
 
   COMMIT;
 
@@ -205,15 +205,15 @@ BEGIN TRANSACTION
 ```sql
 INSERT INTO users (name, email) VALUES ('Alice', 'alice@email.com');
 
-INSERT INTO preferences (user\_id) VALUES (LAST\_INSERT\_ID());
+INSERT INTO preferences (user_id) VALUES (LAST_INSERT_ID());
 
 COMMIT;
 ```
 
 -- Email and logging: SEPARATE operations
 -- (External services, can fail independently)
-send\_email('alice@email.com', 'Welcome!');
-log\_event('user\_registered', user\_id);
+send_email('alice@email.com', 'Welcome!');
+log_event('user_registered', user_id);
 
 **Mental model:** Only database operations that MUST succeed together should be in one transaction. External services (email, APIs) should be separate!
 
@@ -334,7 +334,8 @@ COMMIT;
 
   await db.query('UPDATE products SET price = 99.99 WHERE id = 1');
 
-  await db.query('COMMIT');}
+  await db.query('COMMIT');
+}
 
   catch (error) {
   await db.query('ROLLBACK');  // Clean up on error

@@ -27,7 +27,7 @@
 
 **Question:** Which method serves all customers faster?
 
-### **The Answer: CDN \= Distributed Kitchens for the Internet!**
+### **The Answer: CDN = Distributed Kitchens for the Internet!**
 
 **Definition:** A CDN is a network of servers distributed globally that store copies of your content closer to users.
 
@@ -143,13 +143,13 @@ London → London Edge: 8ms latency (16x faster!)
 **Bandwidth savings:**
 
 Without CDN:
-1 million requests × 2 MB image \= 2 TB from origin
-Cost: $200/TB \= $400
+1 million requests × 2 MB image = 2 TB from origin
+Cost: $200/TB = $400
 
 With CDN (90% cache hit):
-100k requests × 2 MB \= 200 GB from origin
+100k requests × 2 MB = 200 GB from origin
 900k served from cache (free!)
-Cost: $200/TB × 0.2 TB \= $40
+Cost: $200/TB × 0.2 TB = $40
 
 Savings: $360 (90% cheaper!) 💰
 
@@ -217,10 +217,10 @@ Savings: $360 (90% cheaper!) 💰
 
 < !-- Before CDN (Origin Server) -- >
 <img src="https://mysite.com/images/product.jpg">
-<link rel="stylesheet" href="https://mysite.com/styles/main.css"\>
+<link rel="stylesheet" href="https://mysite.com/styles/main.css">
 < !-- With CDN (Automatic) -- >
-<\!-- Just point DNS to Cloudflare - they handle routing! -- >
-<img src="https://mysite.com/images/product.jpg"\>
+<!-- Just point DNS to Cloudflare - they handle routing! -- >
+<img src="https://mysite.com/images/product.jpg">
 < !-- Cloudflare automatically serves from nearest edge -- >
 ```
 **AWS CloudFront: (CDN provider by Amazon)**
@@ -235,7 +235,8 @@ Savings: $360 (90% cheaper!) 💰
                   }
                 }],
                 DefaultCacheBehavior: {
-                TargetOriginId: 'my-origin',    ViewerProtocolPolicy: 'redirect-to-https', CachePolicyId: 'managed-CachingOptimized',
+                TargetOriginId: 'my-origin',    ViewerProtocolPolicy: 'redirect-to-https', CachePolicyId: 'managed-CachingOptimized',
+
                 Compress: true,
                 AllowedMethods: ['GET', 'HEAD'],   CachedMethods: ['GET', 'HEAD']
                 }

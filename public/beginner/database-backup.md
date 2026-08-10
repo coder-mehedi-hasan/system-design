@@ -21,8 +21,8 @@
 **Backup Strategy C:**
 
 * Monday: Copy all 10,000 photos (2 hours)
-* Tuesday: Copy 10 new \+ record "changed since Monday" (1 minute)
-* Wednesday: Copy 5 new \+ record "changed since Tuesday" (30 seconds)
+* Tuesday: Copy 10 new + record "changed since Monday" (1 minute)
+* Wednesday: Copy 5 new + record "changed since Tuesday" (30 seconds)
 * Saturday: Copy all changes since Monday (100 photos, 10 minutes)
 
 **Question:** Which strategy is most efficient for regular backups? What if you need to restore?
@@ -52,7 +52,7 @@
   pg_dump mydb > full_backup_2025-10-15.sql
 
 
-\# Creates complete snapshot of entire database
+# Creates complete snapshot of entire database
 ```
 
 **What's included:**
@@ -73,14 +73,14 @@ Result: Complete standalone backup!
 
 **✅ Advantages:**
 
-* **Simple**: One file \= complete database
+* **Simple**: One file = complete database
 * **Independent**: Don't need any other backups to restore
 * **Fast restore**: Just restore one file
 * **Easy to verify**: One backup to test
 
 **❌ Disadvantages:**
 
-* **Large size**: 100 GB database \= 100 GB backup
+* **Large size**: 100 GB database = 100 GB backup
 * **Slow**: Takes hours for large databases
 * **Resource intensive**: High I/O and CPU during backup
 * **Storage expensive**: Daily full backups eat storage fast
@@ -132,14 +132,14 @@ mysqlbinlog mysql-bin.000002 > incremental_tuesday.sql
 Database changes over time:
 
 
-Sunday:    [Table1: 1000 rows][Table2: 500 rows] \= FULL BACKUP
+Sunday:    [Table1: 1000 rows][Table2: 500 rows] = FULL BACKUP
 
 
-Monday:    [Table1: \+50 rows] \= INCR (50 rows)
+Monday:    [Table1: +50 rows] = INCR (50 rows)
 
-Tuesday:   [Table2: \+20 rows] \= INCR (20 rows)
+Tuesday:   [Table2: +20 rows] = INCR (20 rows)
 
-Wednesday: [Table1: \+100 rows][Table2: \+30 rows] \= INCR (130 rows)
+Wednesday: [Table1: +100 rows][Table2: +30 rows] = INCR (130 rows)
 
 
 
@@ -175,7 +175,7 @@ Step 3: Apply INCR (Tuesday)      ⏱️ 5 minutes
 Step 4: Apply INCR (Wednesday)    ⏱️ 8 minutes
 
 
-Total restore time: \~2.5 hours
+Total restore time: ~2.5 hours
 
 (And if any backup is corrupt, restore FAILS!)
 
@@ -228,7 +228,7 @@ FULL (Sun) → DIFF (Wed) ✓ Can restore from these two
 FULL (Sun) → DIFF (Thu) ✓ Can restore from these two
 
 
-Only need: FULL \+ Latest DIFF (much simpler!)
+Only need: FULL + Latest DIFF (much simpler!)
 
 **Real-world analogy:** Writing a book - you keep the original manuscript (full backup) and each day you save a copy with ALL changes made since the original (not just today's changes).
 
@@ -243,7 +243,7 @@ Only need: FULL \+ Latest DIFF (much simpler!)
  mysqldump --where ="modified_date >= 'Sunday'"
  mydb > diff_monday.sql
 
- # Tuesday: Differential (all changes since Sunday, not Monday\!)
+ # Tuesday: Differential (all changes since Sunday, not Monday!)
 
  mysqldump --where ="modified_date >= 'Sunday'" mydb > diff_tuesday.sql
 
@@ -254,23 +254,23 @@ Only need: FULL \+ Latest DIFF (much simpler!)
 
 Database changes over time:
 
-Sunday:    [1000 rows total] \= FULL BACKUP
+Sunday:    [1000 rows total] = FULL BACKUP
 
 Monday:    [+50 new rows]
-           DIFF \= 50 rows
+           DIFF = 50 rows
 
 Tuesday:   [+20 more new rows]
-           DIFF \= 50 \+ 20 \= 70 rows (cumulative!)
+           DIFF = 50 + 20 = 70 rows (cumulative!)
 
 Wednesday: [+100 more new rows]
-           DIFF \= 50 \+ 20 \+ 100 \= 170 rows (cumulative!)
+           DIFF = 50 + 20 + 100 = 170 rows (cumulative!)
 
 ---
 
 **✅ Advantages:**
 
-* **Simple restore**: Only need FULL \+ Latest DIFF
-* **Fast restore**: Two backups \= quick recovery
+* **Simple restore**: Only need FULL + Latest DIFF
+* **Fast restore**: Two backups = quick recovery
 * **Safer**: Less fragile than incremental chain
 * **Good balance**: Faster than full, simpler than incremental
 
@@ -323,9 +323,9 @@ Total restore time: 2.5 hours
 
 Full:         ⭐ Easiest (1 file)
 
-Differential: ⭐⭐ Easy (2 files: Full \+ Latest Diff)
+Differential: ⭐⭐ Easy (2 files: Full + Latest Diff)
 
-Incremental:  ⭐⭐⭐⭐⭐ Complex (7 files: Full \+ 6 Incrementals)
+Incremental:  ⭐⭐⭐⭐⭐ Complex (7 files: Full + 6 Incrementals)
 
 
 
@@ -333,9 +333,9 @@ Incremental:  ⭐⭐⭐⭐⭐ Complex (7 files: Full \+ 6 Incrementals)
 
 Full:         2 hours (restore 1 file)
 
-Differential: 2.5 hours (restore Full \+ Diff)
+Differential: 2.5 hours (restore Full + Diff)
 
-Incremental:  3+ hours (restore Full \+ all Incrementals)
+Incremental:  3+ hours (restore Full + all Incrementals)
 
 ---
 
@@ -346,16 +346,16 @@ Incremental:  3+ hours (restore Full \+ all Incrementals)
 **![img3](https://res.cloudinary.com/dretwg3dy/image/upload/v1764508559/224_ti5sb8.png)**
 
 ┌**The 3-2-1 Rule:**
-3 \= Keep 3 copies of data
+3 = Keep 3 copies of data
     - Production database
     - Local backup
     - Offsite backup
 
-2 \= Use 2 different storage types
+2 = Use 2 different storage types
     - Local disk/SAN
     - Cloud storage (S3, Azure Blob)
 
-1 \= Keep 1 copy offsite
+1 = Keep 1 copy offsite
     - Different geographic location
     - Protected from local disasters
 
@@ -410,7 +410,7 @@ WHY THIS WORKS:
 
 ✓ RPO: 4 hours (matches incremental schedule)
 
-✓ RTO: \~2 hours (restore Full \+ Diff \+ few Incrementals)
+✓ RTO: ~2 hours (restore Full + Diff + few Incrementals)
 
 ✓ Balance: Not too much storage, not too risky
 

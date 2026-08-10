@@ -119,9 +119,9 @@ You:              Check stock → 1 croissant available ✓
 
 Friend:           Check stock → 1 croissant available ✓
 
-You:              Buy it! → Success (stock \= 0)
+You:              Buy it! → Success (stock = 0)
 
-Friend:           Buy it! → Success (stock \= -1) 😱
+Friend:           Buy it! → Success (stock = -1) 😱
 
 Result: Two people bought one croissant! Negative inventory!
 
@@ -224,8 +224,8 @@ You restart → Transfer is there ✓
 
 **Real-world parallel:** Think of saving a document:
 
-* **Without Durability:** "Saved!" but only in RAM. Crash \= lost work 😢
-* **With Durability:** "Saved!" and immediately written to hard drive. Crash \= work is safe ✓
+* **Without Durability:** "Saved!" but only in RAM. Crash = lost work 😢
+* **With Durability:** "Saved!" and immediately written to hard drive. Crash = work is safe ✓
 
 **Key insight:** Durability guarantees that once a transaction is committed, it's permanent - even if power fails, servers crash, or disasters strike!
 
@@ -269,7 +269,7 @@ Protected by:
 **Scenario 1:** Social media "likes" counter
 
 * Thousands of people like simultaneously
-* Occasional miscount of \+/- 1 is acceptable
+* Occasional miscount of +/- 1 is acceptable
 * Speed is critical
 
 **ACID needed?** 🤔

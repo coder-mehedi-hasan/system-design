@@ -34,7 +34,7 @@ All 1000 apps crash instantly! They're expecting `name`, but now there's `first_
 // Old app code
 ```javascript
 
-console.log(user.name)  // undefined\! The field doesn't exist anymore\!
+console.log(user.name)  // undefined! The field doesn't exist anymore!
 ```
 
 This is called a **breaking change**, and it's a disaster!
@@ -240,7 +240,7 @@ This is less common but simple.
 
  v1: {"name": "John"}
 
- v2: {} ← Missing field\! BREAKING\
+ v2: {} ← Missing field! BREAKING\
 
  ```
 
@@ -391,7 +391,8 @@ Step 4: Shutdown
 
  {  "error": "API v1 is no longer available",  "message":
 
- "Please use v2: https://api.myapi.com/v2/users"}
+ "Please use v2: https://api.myapi.com/v2/users"
+}
  ```
 
 

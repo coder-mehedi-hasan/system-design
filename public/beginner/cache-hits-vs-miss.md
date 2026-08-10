@@ -46,14 +46,14 @@ The diagram shows how video is fetched from the original server and then stored 
 
 **Formula:**
 
-**Cache Hit Ratio \= Cache Hits / Total Requests × 100%**
+**Cache Hit Ratio = Cache Hits / Total Requests × 100%**
 
 Example:
 - 1000 requests
 - 850 cache hits
 - 150 cache misses
 
-Hit Ratio \= 850/1000 \= 85%
+Hit Ratio = 850/1000 = 85%
 
 **What different ratios mean:**
 
@@ -86,7 +86,7 @@ Below 50% Hit Ratio: ❌ Poor
 **In our netflix example for “stranger things “ the application had  just started**
 **Cache was empty**
 
-First request for each item \= Miss
+First request for each item = Miss
 
 Example:
 Request 1 (Product A): Miss ❌ → Load from DB
@@ -178,7 +178,8 @@ Next request: Miss ❌ → Fetch fresh data
 
  console.log(cache.getStats())
 
- // { hits: 1, misses: 2, hitRatio: '33.33%' } |
+ // { hits: 1, misses: 2, hitRatio: '33.33%' }
+|
 
  ````
 
@@ -218,11 +219,11 @@ User profiles (1,000 different users):
 
 **Calculate:**
 
-Total Hits: 9,999 \+ 4,900 \+ 1,000 \= 15,899
-Total Misses: 1 \+ 100 \+ 1,000 \= 1,101
-Total Requests: 15,899 \+ 1,101 \= 17,000
+Total Hits: 9,999 + 4,900 + 1,000 = 15,899
+Total Misses: 1 + 100 + 1,000 = 1,101
+Total Requests: 15,899 + 1,101 = 17,000
 
-Hit Ratio \= 15,899 / 17,000 \= 93.52% 🌟
+Hit Ratio = 15,899 / 17,000 = 93.52% 🌟
 
 This is excellent! Homepage caching is very effective.
 
@@ -252,7 +253,7 @@ For instance netflix might be aware the people are going to watch “stranger th
 
     cache.set(`product:${product.id}`, product);  });
 
-    console.log('Cache warmed with 100 popular products\!')
+    console.log('Cache warmed with 100 popular products!')
 
    }
     // Run at application startup

@@ -28,9 +28,9 @@ Without pagination, you'd try to send:
 ```json
 
 {
-  "posts": \[
+  "posts": [
     {...}, {...}, {...}, ... (500 million objects)
-  \]
+  ]
 }
 ```
 
@@ -67,22 +67,32 @@ Request for Page 1:
 ━━━━━━━━━━━━━━━━━━
 
 ```bash
- GET /posts?page=1\&limit=10
- ```
- Server thinks:"Page 1, limit 10... let me calculate:
+ GET /posts?page=1&limit=10
 
- Offset \= (page - 1) × limit \= (1 - 1) × 10 \= 0
+
+ ```
+ Server thinks: "Page 1, limit 10... let me calculate:
+
+ Offset = (page - 1) × limit = (1 - 1) × 10 = 0
 
  So, fetch items from position 0 to 9"
 
  ```sql
 
- SQL: SELECT \* FROM posts LIMIT 10 OFFSET 0
+ SQL: SELECT * FROM posts LIMIT 10 OFFSET 0
 
  ```
  Response:
  ```json
- {  "posts": \[...10 posts...\],  "pagination": {    "current\_page": 1,    "total\_pages": 50000,    "total\_items": 500000,    "per\_page": 10  }} |
+ {  "posts": [...10 posts...],
+"pagination": {
+"current_page": 1,
+"total_pages": 50000,
+"total_items": 500000,
+"per_page": 10
+}
+}
+|
  ```
 
 Now, the user wants page 2:
@@ -92,23 +102,27 @@ Request for Page 2:
 ━━━━━━━━━━━━━━━━━━
 
 ```bash
- GET /posts?page=2\&limit=10
+ GET /posts?page=2&limit=10
  ```
 
 Server calculates:
 
-Offset \= (2 - 1) × 10 \= 10
+Offset = (2 - 1) × 10 = 10
 
 So, fetch items from position 10 to 19
 
 ```sql
 
-SQL: SELECT \* FROM posts LIMIT 10 OFFSET 10
+SQL: SELECT * FROM posts LIMIT 10 OFFSET 10
 ```
 
 Response:
 ```json
-{  "posts": [...10 different posts...],  "pagination": {   "current_page": 2,    "total_pages": 50000,    "total_items": 500000,   "per_page": 10  }}
+
+{
+"posts": [...10 different posts...],  "pagination": {   "current_page": 2,
+"total_pages": 50000,
+"total_items": 500000,   "per_page": 10  }}
 
 ```
 
@@ -119,7 +133,7 @@ Imagine you're building a blog API with 243 posts. A client wants 20 posts per p
 First Request:
 
 ```bash
- GET /posts?page=1\&limit=20
+ GET /posts?page=1&limit=20
 ```
 
 
@@ -128,7 +142,9 @@ Your API returns:
 
 {  "data":
 
-  {"id": 1, "title": "First Post"},    {"id": 2, "title": "Second Post"},    ... (18 more posts)  ],  "pagination": {    "page": 1,    "limit": 20,    "total_items": 243,    "total_pages": 13,  ← Math.ceil(243 / 20\) \= 13   "has\_next": true,   "has\_previous": false  },  "links": {    "first": "/posts?page=1\&limit=20",    "next": "/posts?page=2\&limit=20",   "last": "/posts?page=13\&limit=20"  }}
+  {"id": 1, "title": "First Post"},
+{"id": 2, "title": "Second Post"},    ... (18 more posts)  ],  "pagination": {    "page": 1,    "limit": 20,    "total_items": 243,    "total_pages": 13,  ← Math.ceil(243 / 20) = 13   "has_next": true,   "has_previous": false
+},  "links": {    "first": "/posts?page=1&limit=20",    "next": "/posts?page=2&limit=20",   "last": "/posts?page=13&limit=20"  }}
 ```
 Notice how we are  giving the client helpful info:
 
@@ -159,7 +175,7 @@ When you click "Next" to page 6:
 
 ```bash
 
-GET /posts?page=6\&limit=10
+GET /posts?page=6&limit=10
 
 ```
 
@@ -187,7 +203,20 @@ First Request:
 
  Response:
  ```json
- {  "data": [    {"id": 101, "title": "Post 1", "created\_at": "2025-10-15"},    {"id": 102, "title": "Post 2", "created\_at": "2025-10-16"},    ... (8 more posts)    {"id": 110, "title": "Post 10", "created\_at": "2025-10-19"}  \],  "pagination": {    "next\_cursor": "eyJpZCI6MTEwfQ==",  ← This is your bookmark\!    "has\_more": true  }} |
+
+{
+"data": [
+{"id": 101, "title": "Post 1", "created_at": "2025-10-15"},
+{"id": 102, "title": "Post 2", "created_at": "2025-10-16"},
+... (8 more posts)
+{"id": 110, "title": "Post 10", "created_at": "2025-10-19"}
+],
+"pagination": {
+"next_cursor": "eyJpZCI6MTEwfQ==",  ← This is your bookmark!
+"has_more": true
+}
+}
+|
  ````
 
 
@@ -198,7 +227,7 @@ Second Request:
 
 ```bash
 
- GET /posts?limit=10\&cursor=eyJpZCI6MTEwfQ==
+ GET /posts?limit=10&cursor=eyJpZCI6MTEwfQ==
 
 ```
 Server decodes cursor: "They left off at ID 110"
@@ -210,7 +239,17 @@ SQL: SELECT * FROM posts WHERE id > 110 LIMIT 10
 
 ```json
 Response:
-{  "data": \[    {"id": 111, "title": "Post 11"},    {"id": 112, "title": "Post 12"},    ... (8 more posts)    {"id": 120, "title": "Post 20"}  \],  "pagination": {    "next\_cursor": "eyJpZCI6MTIwfQ==",    "previous\_cursor": "eyJpZCI6MTExfQ==",    "has\_more": true  }}
+{  "data": [    {"id": 111, "title": "Post 11"},
+{"id": 112, "title": "Post 12"},
+... (8 more posts)
+{"id": 120, "title": "Post 20"}
+],
+"pagination": {
+"next_cursor": "eyJpZCI6MTIwfQ==",
+"previous_cursor": "eyJpZCI6MTExfQ==",
+"has_more": true
+}
+}
 ```
 
 ### **Why Cursor Pagination Solves the Shifting Problem**
@@ -247,7 +286,11 @@ You open the app:
 
  Server returns:
  ```json
- { "posts": [{"id": "post_999", "content": "..."},   {"id": "post_998", "content": "..."},    ... (18 more)    {"id": "post_980", "content": "..."}  \],  "next\_cursor": "post_980"}
+ { "posts": [{"id": "post_999", "content": "..."},   {"id": "post_998", "content": "..."},
+... (18 more)    {"id": "post_980", "content": "..."}
+],
+"next_cursor": "post_980"
+}
  ```
 
 You scroll down:
@@ -257,11 +300,11 @@ You scroll down:
 App:
 
 ```bash
-GET /feed?limit=20\&cursor=post\_980
+GET /feed?limit=20&cursor=post_980
 ```
 
 
-Server: "Show 20 posts AFTER post\_980"
+Server: "Show 20 posts AFTER post_980"
 
 Even if:
 - New posts are added

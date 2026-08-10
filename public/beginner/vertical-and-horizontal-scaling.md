@@ -192,7 +192,7 @@ Cost: $500/month
 
 ![img2](https://res.cloudinary.com/dretwg3dy/image/upload/v1764650664/241_b3u0hy.png)
 
-Strategy: HORIZONTAL apps \+ VERTICAL database
+Strategy: HORIZONTAL apps + VERTICAL database
 
 Cost: $5,000/month
 

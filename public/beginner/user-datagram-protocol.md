@@ -136,8 +136,8 @@ Because the **application decides** what to do:
 
 **Challenge question:** If you're sending 100 bytes of data, what percentage is overhead?
 
-**TCP:** 20 bytes header / 120 bytes total \= **16.7% overhead**
- **UDP:** 8 bytes header / 108 bytes total \= **7.4% overhead**
+**TCP:** 20 bytes header / 120 bytes total = **16.7% overhead**
+ **UDP:** 8 bytes header / 108 bytes total = **7.4% overhead**
 
 For small messages, this makes a HUGE difference!
 

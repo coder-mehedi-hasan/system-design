@@ -139,7 +139,7 @@ Unencrypted envelope (visible to routers):
 
 **But what if it's actually a hacker?**
 
-Hacker: "Hi! I'm bank.com! Here's MY public key: [HACKER\_KEY]"
+Hacker: "Hi! I'm bank.com! Here's MY public key: [HACKER_KEY]"
 
         "Now encrypt your password with my key!"
 
@@ -160,7 +160,7 @@ A. Trust the first key you receive
 
 **Step 1: Certificate Authorities (Pre-installed trust)**
 
-Your browser comes with \~100 trusted CAs pre-installed:
+Your browser comes with ~100 trusted CAs pre-installed:
 
 - DigiCert
 
@@ -229,13 +229,13 @@ Your browser → Server:
 
 - I support these cipher suites:
 
-  * TLS\_AES\_128\_GCM\_SHA256
+  * TLS_AES_128_GCM_SHA256
 
-  * TLS\_CHACHA20\_POLY1305\_SHA256
+  * TLS_CHACHA20_POLY1305_SHA256
 
-- Here's a random number: [CLIENT\_RANDOM]
+- Here's a random number: [CLIENT_RANDOM]
 
-- (TLS 1.3) Here's my key share: [CLIENT\_KEY\_SHARE]"
+- (TLS 1.3) Here's my key share: [CLIENT_KEY_SHARE]"
 
 **Mental model:** "Here's what I can speak and understand, what about you?"
 
@@ -249,15 +249,15 @@ Server → Your browser:
 
 - Let's use TLS 1.3
 
-- Let's use cipher suite: TLS\_AES\_128\_GCM\_SHA256
+- Let's use cipher suite: TLS_AES_128_GCM_SHA256
 
-- Here's my random number: [SERVER\_RANDOM]
+- Here's my random number: [SERVER_RANDOM]
 
-- Here's my key share: [SERVER\_KEY\_SHARE]
+- Here's my key share: [SERVER_KEY_SHARE]
 
 - Here's my certificate (signed by Let's Encrypt)
 
-- Certificate chain: [MY\_CERT] → [INTERMEDIATE\_CA] → [ROOT\_CA]"
+- Certificate chain: [MY_CERT] → [INTERMEDIATE_CA] → [ROOT_CA]"
 
 **Mental model:** "I'll match your capabilities, here's my proof of identity"
 
@@ -267,13 +267,13 @@ Server → Your browser:
 
 Both sides now have:
 
-- CLIENT\_RANDOM (public)
+- CLIENT_RANDOM (public)
 
-- SERVER\_RANDOM (public)
+- SERVER_RANDOM (public)
 
-- CLIENT\_KEY\_SHARE (public)
+- CLIENT_KEY_SHARE (public)
 
-- SERVER\_KEY\_SHARE (public)
+- SERVER_KEY_SHARE (public)
 
 They combine these using Diffie-Hellman key exchange:
 
@@ -293,17 +293,17 @@ You start with: Yellow (public)
 
 Server starts with: Blue (public)
 
-You add secret: Red (private) → Yellow \+ Red \= Orange
+You add secret: Red (private) → Yellow + Red = Orange
 
-Server adds secret: Green (private) → Blue \+ Green \= Teal
+Server adds secret: Green (private) → Blue + Green = Teal
 
 You send: Orange (public)
 
 Server sends: Teal (public)
 
-You mix: Teal \+ Red \= [Final Color]
+You mix: Teal + Red = [Final Color]
 
-Server mixes: Orange \+ Green \= [SAME Final Color]
+Server mixes: Orange + Green = [SAME Final Color]
 
 Attacker sees: Yellow, Blue, Orange, Teal
 
@@ -324,7 +324,7 @@ Browser → Server: (encrypted with symmetric key)
 
 Server → Browser: (encrypted with symmetric key)
 
-| "HTTP/1.1 200 OK{account data}" |
+| "HTTP/1.1 200 OK<br>{account data}" |
 | :---- |
 
 **Why switch to symmetric encryption?**
@@ -336,8 +336,8 @@ Server → Browser: (encrypted with symmetric key)
 
 **Real-world parallel:**
 
-* Public key \= Armored truck to deliver a house key
-* Symmetric key \= Using that house key for everyday entry
+* Public key = Armored truck to deliver a house key
+* Symmetric key = Using that house key for everyday entry
 * You don't use the armored truck every time, just once!
 
 ---
@@ -349,7 +349,7 @@ Server → Browser: (encrypted with symmetric key)
 | Feature | TLS 1.2 | TLS 1.3 |
 | ----- | ----- | ----- |
 | **Handshake** | 2 round trips |  1 round trip |
-| **Speed** | \~200ms |  \~100ms |
+| **Speed** | ~200ms |  ~100ms |
 | **Cipher suites** | 37 options |  5 options (removed weak ones) |
 | **Forward secrecy** | Optional |  Mandatory |
 | **Handshake encryption** | No |  Yes (mostly) |

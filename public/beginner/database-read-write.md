@@ -58,7 +58,7 @@ Multiple reads can happen simultaneously
 
 ```sql
 
- SELECT \* FROM users WHERE username = 'alice';
+ SELECT * FROM users WHERE username = 'alice';
  ```
 
 **Read characteristics:**
@@ -330,7 +330,7 @@ SELECT * FROM users WHERE email = 'alice@email.com';
 
  ```sql
 
-CREATE INDEX idx\_email ON users(email);
+CREATE INDEX idx_email ON users(email);
 ```
 
 
@@ -345,7 +345,8 @@ CREATE INDEX idx\_email ON users(email);
 ```javascript
 for (let i = 0; i < 1000; i++) {
 
-  await db.query('INSERT INTO logs (message) VALUES (?)', \[msg[i]]);}
+  await db.query('INSERT INTO logs (message) VALUES (?)', [msg[i]]);
+}
 
   // Time: 1000 × 5ms = 5000ms 😰
   ```
@@ -353,9 +354,10 @@ for (let i = 0; i < 1000; i++) {
 // Good: 1 batched write
 
 ```javascript
-await db.query(  'INSERT INTO logs (message) VALUES (?), (?), ... (all 1000)',  messages);
+await db.query(
+'INSERT INTO logs (message) VALUES (?), (?), ... (all 1000)',  messages);
 
-// Time: 50ms ⚡ (100x faster\!)
+// Time: 50ms ⚡ (100x faster!)
 ```
 
 
@@ -400,14 +402,14 @@ Log-Structured Storage: Append only
 
 ### **🎯 Mental Models Summary**
 
-**Reading \= Looking at a book**
+**Reading = Looking at a book**
 
 * Many people can look at the same time
 * No permission needed
 * Fast and easy
 * Doesn't change anything
 
-**Writing \= Editing a shared document**
+**Writing = Editing a shared document**
 
 * Need to coordinate with others
 * Requires permission (locks)

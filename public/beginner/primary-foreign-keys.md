@@ -46,7 +46,7 @@
 
 ![img1](https://res.cloudinary.com/dretwg3dy/image/upload/v1764427380/208_uykzxc.png)
 
-**Why is student\_id the primary key?**
+**Why is student_id the primary key?**
 
 * 🆔 Unique: No two students have same ID
 * 🚫 Not null: Every student must have an ID
@@ -80,13 +80,13 @@ student_id INT, course_id INT, enrollment_date DATE,  grade VARCHAR(2), FOREIGN 
 
 ![img2](https://res.cloudinary.com/dretwg3dy/image/upload/v1764427379/207_xje9pv.png)
 
-Alice (student\_id: 1001) is enrolled in:
-  → CS101 (via enrollment\_id 1)
-  → MATH200 (via enrollment\_id 2)
+Alice (student_id: 1001) is enrolled in:
+  → CS101 (via enrollment_id 1)
+  → MATH200 (via enrollment_id 2)
 
 CS101 has these students:
-  → Alice (student\_id: 1001)
-  → Bob (student\_id: 1002)
+  → Alice (student_id: 1001)
+  → Bob (student_id: 1002)
 
 ---
 
@@ -99,7 +99,7 @@ CS101 has these students:
 | Social Security Number in PEOPLE table | ? |
 | Customer ID in ORDERS table referencing CUSTOMERS | ? |
 | Order ID in ORDERS table | ? |
-| Product ID in ORDER\_ITEMS table referencing PRODUCTS | ? |
+| Product ID in ORDER_ITEMS table referencing PRODUCTS | ? |
 
 **Think about each one...**
 
@@ -123,7 +123,7 @@ CS101 has these students:
  INSERT INTO enrollments (student_id, course_id) VALUES (9999, 'CS101');
 
  ```
- -- Student 9999 doesn't exist!-- Result: ❌ ERROR: Foreign key constraint violated!-- Database says: "Can't enroll a student that doesn't exist!
+ -- Student 9999 doesn't exist!-- Result: ❌ ERROR: Foreign key constraint violated! -- Database says: "Can't enroll a student that doesn't exist!
 
  Scenario 2: Broken References
  -- Try to delete a student who has enrollments
@@ -136,7 +136,7 @@ CS101 has these students:
 
  -- Database says: "Can't delete student with existing enrollments!"
 
- -- (You'd have orphaned enrollments pointing to non-existent student)Options for handling deletions:
+ -- (You'd have orphaned enrollments pointing to non-existent student)Options for handling deletions:
 
  -- CASCADE: Delete enrollments when student is deleted
 
@@ -168,13 +168,16 @@ CS101 has these students:
 
  ORDERS table
 ```sql
- CREATE TABLE orders (  order_id INT PRIMARY KEY,         customer_id INT,  order_date DATE,  total_amount DECIMAL, FOREIGN KEY (customer_id) REFERENCES customers(customer_id));
+ CREATE TABLE orders (  order_id INT PRIMARY KEY,         customer_id INT,  order_date DATE,  total_amount DECIMAL,
+FOREIGN KEY (customer_id) REFERENCES customers(customer_id));
  ```
 
   ORDER_ITEMS table
   ```sql
   CREATE TABLE order_items (  item_id INT PRIMARY KEY,    order_id INT,  orders  product_id INT,
-  products  quantity INT,  price DECIMAL,   FOREIGN KEY (order_id) REFERENCES orders(order_id),  FOREIGN KEY (product_id) REFERENCES products(product_id));
+  products  quantity INT,  price DECIMAL,   FOREIGN KEY (order_id) REFERENCES orders(order_id),
+FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
   ```
 
  PRODUCTS table
@@ -202,8 +205,8 @@ CS101 has these students:
 
 **Mental model:**
 
-* **Primary Key** \= Your name on your ID badge
-* **Foreign Key** \= Your name on your visitor's guest list (referencing you)
+* **Primary Key** = Your name on your ID badge
+* **Foreign Key** = Your name on your visitor's guest list (referencing you)
 
 ---
 

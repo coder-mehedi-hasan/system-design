@@ -29,9 +29,9 @@
 
 ### **The Answer: Indexing!**
 
-**A database without indexes** \= Reading every single row to find what you need
+**A database without indexes** = Reading every single row to find what you need
 
-**A database with indexes** \= Jump directly to the data you want
+**A database with indexes** = Jump directly to the data you want
 
 ---
 
@@ -87,7 +87,7 @@ Database uses index:
 2. Index points to Row 50,000
 3. Jump directly to that row
 
-Time: Scanned \~17 entries (FAST! ⚡)
+Time: Scanned ~17 entries (FAST! ⚡)
 
 ---
 
@@ -321,7 +321,7 @@ BEGIN TRANSACTION;
 SELECT * FROM books WHERE book_id = 42 AND available = true;
 // Create loan record
 
-INSERT INTO loans (book\_id, member_id, loan_date, due_date)  VALUES (42, 1, CURRENT_DATE, CURRENT_DATE + 14);
+INSERT INTO loans (book_id, member_id, loan_date, due_date)  VALUES (42, 1, CURRENT_DATE, CURRENT_DATE + 14);
 
  Mark book as unavailable
 UPDATE books SET available = false WHERE book_id = 42;

@@ -84,7 +84,7 @@ GAME RUNNING ON 8-CORE CPU
 ![img25](https://res.cloudinary.com/dretwg3dy/image/upload/v1762354295/14_oq93li.png)
 
 Without multiple cores:
-One core at 370% \= Impossible!
+One core at 370% = Impossible!
 Game would run at \<30 FPS
 
 ---
@@ -95,20 +95,20 @@ Game would run at \<30 FPS
 
 CLOCK SPEED (GHz - Gigahertz)
 
-Clock speed \= How many cycles per second
+Clock speed = How many cycles per second
 
-1 Hz \= 1 cycle per second
-1 KHz \= 1,000 cycles per second
-1 MHz \= 1,000,000 cycles per second
-1 GHz \= 1,000,000,000 cycles per second
+1 Hz = 1 cycle per second
+1 KHz = 1,000 cycles per second
+1 MHz = 1,000,000 cycles per second
+1 GHz = 1,000,000,000 cycles per second
 
 Modern CPU: 3.5 GHz
-\= 3,500,000,000 cycles per second!
+= 3,500,000,000 cycles per second!
 
 What happens in one cycle?
 
 Simple instruction (add two numbers):
-1 cycle \= **Fetch, Decode, Execute, Write**
+1 cycle = **Fetch, Decode, Execute, Write**
 
 Complex instruction (divide):
 10-50 cycles
@@ -138,7 +138,7 @@ Classic  pipeline:
 
 **Stage 3: EXECUTE**
 ├─ Perform the operation
-└─ "5 \+ 3 \= 8"
+└─ "5 + 3 = 8"
 
 **Stage 4: WRITE BACK**
 ├─ Write result back
@@ -204,19 +204,19 @@ Architecture efficiency:
 
 Cache size:
 
-├─ Larger cache \= fewer RAM accesses
+├─ Larger cache = fewer RAM accesses
 
 └─ Can matter more than 0.5 GHz!
 
 Memory speed:
 
-├─ CPU waiting for RAM \= wasted cycles
+├─ CPU waiting for RAM = wasted cycles
 
 └─ Fast RAM helps more than high GHz
 
 Power efficiency:
 
-├─ High GHz \= high power \= thermal throttling
+├─ High GHz = high power = thermal throttling
 
 └─ Sustained 4 GHz > burst 5 GHz that throttles
 

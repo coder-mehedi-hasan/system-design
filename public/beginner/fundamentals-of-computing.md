@@ -12,30 +12,30 @@
 
 **Before diving into technical details, let's understand computers through a familiar analogy:**
 
-A COMPUTER \= A BUSTLING CITY
+A COMPUTER = A BUSTLING CITY
 
 🧠 CPU (Central Processing Unit)
-   \= City Government / Mayor's Office
+   = City Government / Mayor's Office
    Makes all the decisions and coordinates everything
 
 💾 RAM (Random Access Memory)
-   \= Office Desks / Workspaces
+   = Office Desks / Workspaces
    Temporary workspace for active projects
 
 💿 Storage (Hard Drive / SSD)
-   \= City Archives / Libraries
+   = City Archives / Libraries
    Long-term storage of all information
 
 🖱️ Input Devices (Keyboard, Mouse)
-   \= Citizens submitting requests
+   = Citizens submitting requests
    Ways to communicate with the city
 
 🖥️ Output Devices (Monitor, Speakers)
-   \= City Announcements / Billboards
+   = City Announcements / Billboards
    How the city communicates back to you
 
 🚌 Bus / Motherboard
-   \= Roads connecting everything
+   = Roads connecting everything
    Pathways for information to flow
 
 **Key insight:** Just like a city needs government, workspace, archives, citizens, and roads to function, your computer needs all these components working together!
@@ -76,9 +76,9 @@ Modern CPU (2025):
 
 **Real-world example:**
 
-* Opening Chrome \= CPU executes millions of instructions
-* Playing a game \= CPU coordinates graphics, physics, AI
-* Typing this sentence \= CPU processes every keystroke
+* Opening Chrome = CPU executes millions of instructions
+* Playing a game = CPU coordinates graphics, physics, AI
+* Typing this sentence = CPU processes every keystroke
 
 ---
 
@@ -172,7 +172,7 @@ Example: Opening a photo
 ![img9](https://res.cloudinary.com/dretwg3dy/image/upload/v1762355306/page34_tnyzcv.png)
 
 
-Total time: \~100 milliseconds
+Total time: ~100 milliseconds
 (Feels instant to you!)
 
 ---
@@ -225,7 +225,7 @@ ALL OF THIS HAPPENS 60 TIMES PER SECOND! 🤯
 
 ---
 
-### **🚨 Common Misconception: "More RAM \= Faster Computer"**
+### **🚨 Common Misconception: "More RAM = Faster Computer"**
 
 **You might think:** "I'll just add more RAM and everything will be faster!"
 
@@ -280,10 +280,10 @@ More RAM does nothing IF you already have enough.**
 
 **Better analogy:**
 
-* RAM \= Desk size
-* Too small desk \= Papers fall off, you work on floor (slow!)
-* Right size desk \= Everything fits, you work efficiently
-* Huge desk \= Extra space sits empty, doesn't make you faster
+* RAM = Desk size
+* Too small desk = Papers fall off, you work on floor (slow!)
+* Right size desk = Everything fits, you work efficiently
+* Huge desk = Extra space sits empty, doesn't make you faster
 
 ---
 
@@ -300,7 +300,7 @@ THE COMPUTER ORCHESTRA
 
 **Match each task to the component primarily responsible:**
 
-**Tasks:** A. Stores your vacation photos permanently B. Executes the calculation 2 \+ 2 C. Holds the Netflix app while it's running D. Displays this text you're reading E. Receives your keyboard typing F. Connects all components together
+**Tasks:** A. Stores your vacation photos permanently B. Executes the calculation 2 + 2 C. Holds the Netflix app while it's running D. Displays this text you're reading E. Receives your keyboard typing F. Connects all components together
 
 **Components:**
 

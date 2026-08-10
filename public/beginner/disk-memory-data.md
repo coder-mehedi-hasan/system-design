@@ -68,9 +68,9 @@ The Pattern:
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Closer \= Faster but Less Space
+Closer = Faster but Less Space
 
-Farther \= Slower but More Space
+Farther = Slower but More Space
 
 Remember the storage diagram we discussed on the first section (the fundamentals of computing)? Storage latency ranges from nanoseconds (RAM) to milliseconds (disk) to seconds (network storage). This affects EVERY operation in your system!
 
@@ -96,7 +96,7 @@ RAM Access Time:
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Reading 1 byte from RAM: \~100 nanoseconds
+Reading 1 byte from RAM: ~100 nanoseconds
 
 How fast is that?
 
@@ -118,7 +118,7 @@ Real numbers:
  // Database Query Without Caching
 const getUser = async (userId) => {
 // Query database (on SSD)
-  const user = await db.query('SELECT * FROM users WHERE id \= ?',(userId))
+  const user = await db.query('SELECT * FROM users WHERE id = ?',(userId))
     return user;
   }
   // Time: 50ms (database query)
@@ -132,7 +132,7 @@ const getUser = async (userId) => {
   if (userCache.has(userId)) {
     return userCache.get(userId); // From RAM
     // Not in cache, query database
-    const user = await db.query('SELECT * FROM users WHERE id \= ?',(userId)  );
+    const user = await db.query('SELECT * FROM users WHERE id = ?',(userId)  );
     // Store in RAM for next time
     userCache.set(userId, user);
     return user;
@@ -140,8 +140,8 @@ const getUser = async (userId) => {
 
   // First call: 50ms (database)
   // Subsequent calls: 0.0001ms (RAM)
-  // If called 1000 times: 50ms \+ (999 × 0.0001ms) \= 50ms\!
-  // 1000x faster\! ⚡
+  // If called 1000 times: 50ms + (999 × 0.0001ms) = 50ms!
+  // 1000x faster! ⚡
 
   ```
 
@@ -212,7 +212,8 @@ Monitoring RAM:
 
 ```bash
 | $ free -h
-total        used        free      shared  buff/cache   availableMem:
+total        used        free      shared  buff/cache   available
+Mem:
 16Gi       8.2Gi       2.1Gi       200Mi     5.7Gi       7.5Gi
 
 Used: 8.2GB (your applications)
@@ -332,7 +333,7 @@ Cloud SSD (AWS gp3):
 
 Speed: 3,000 IOPS baseline
 
-Cost: $0.08/GB/month \+ IOPS
+Cost: $0.08/GB/month + IOPS
 
 Use: Production databases, VMs
 
@@ -379,7 +380,7 @@ Step 3: Transfer Time (0.1ms)
 
    [Finally! Data transfer!]
 
-Total: \~10ms per operation
+Total: ~10ms per operation
 
 Compare to SSD: 0.1ms
 HDD is 100x slower!
@@ -393,21 +394,21 @@ Why Sequential is Better:
 
 Random reads (jumping around):
 
-- Read block 100: Seek (10ms) \+ Read
+- Read block 100: Seek (10ms) + Read
 
-- Read block 5000: Seek (10ms) \+ Read
+- Read block 5000: Seek (10ms) + Read
 
-- Read block 200: Seek (10ms) \+ Read
+- Read block 200: Seek (10ms) + Read
 
 Total: 30ms for 3 blocks
 
 Sequential reads (consecutive):
 
-- Read block 100: Seek (10ms) \+ Read
+- Read block 100: Seek (10ms) + Read
 
-- Read block 101: No seek! \+ Read
+- Read block 101: No seek! + Read
 
-- Read block 102: No seek! \+ Read
+- Read block 102: No seek! + Read
 
 Total: 10ms for 3 blocks
 

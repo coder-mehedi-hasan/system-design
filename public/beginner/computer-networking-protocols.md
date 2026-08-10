@@ -4,7 +4,7 @@
 
 Simple definition: A protocol is a set of rules that allows two parties to communicate
 
-Think of it like a language. If we both speak English, we can understand each other. If I speak English and you speak Mandarin, we're stuck. Protocols are the "language" computers use to talk to each other. Follow the same rules \= communication works. Different rules \= chaos.
+Think of it like a language. If we both speak English, we can understand each other. If I speak English and you speak Mandarin, we're stuck. Protocols are the "language" computers use to talk to each other. Follow the same rules = communication works. Different rules = chaos.
 
 ## **Property #1: Data Format**
 
@@ -139,9 +139,9 @@ Smart people built standards so we don't have to worry about this. Your app work
 
 ### **📻 Think of Layer 1 like different types of radio broadcasts**:
 
-- AM Radio \= Ethernet (electrical signals)
-- FM Radio \= WiFi (radio waves)
-- Satellite Radio \= Fiber (light through glass)
+- AM Radio = Ethernet (electrical signals)
+- FM Radio = WiFi (radio waves)
+- Satellite Radio = Fiber (light through glass)
 
 Your car radio doesn't care WHAT music is playing (that's the higher layers). Layer 1 only cares about: "Am I receiving AM, FM, or Satellite signal?"
 
@@ -206,8 +206,8 @@ MAC Address example: `00:1A:2B:3C:4D:5E`
 
 ### **🌍** **Layer 3 is the international postal service.**
 
-- **MAC address (Layer 2)** \= Apartment number (only matters inside the building)
-- **IP address (Layer 3)** \= Full street address (works globally)
+- **MAC address (Layer 2)** = Apartment number (only matters inside the building)
+- **IP address (Layer 3)** = Full street address (works globally)
 
 When you mail a letter from New York to Tokyo:
 
@@ -257,12 +257,12 @@ IP Address example: `192.168.1.1` or `2001:0db8::1`
 
 ### **🏢 Your server is like an office building**:
 
-- **IP address** \= Building's street address (Layer 3)
-- **Ports** \= Specific office room numbers (Layer 4)
-  - Room 80 \= HTTP department
-  - Room 443 \= HTTPS department
-  - Room 22 \= SSH department
-  - Room 3306 \= MySQL department
+- **IP address** = Building's street address (Layer 3)
+- **Ports** = Specific office room numbers (Layer 4)
+  - Room 80 = HTTP department
+  - Room 443 = HTTPS department
+  - Room 22 = SSH department
+  - Room 3306 = MySQL department
 
 The postal service (Layer 3) delivers mail to the building. But which office inside should get it? That's what ports do—they route to the correct application.
 

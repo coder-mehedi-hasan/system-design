@@ -27,14 +27,14 @@
 
 ### **The Answer: SQL vs NoSQL in a Nutshell**
 
-**SQL (Structured Query Language) Databases \= Library A**
+**SQL (Structured Query Language) Databases = Library A**
 
 * Think: Excel spreadsheets with strict rules
 * Data organized in tables with fixed columns (schema)
 * Perfect for structured, predictable data
 * Examples: MySQL, PostgreSQL, Oracle, SQL Server
 
-**NoSQL (Not Only SQL) Databases \= Library B**
+**NoSQL (Not Only SQL) Databases = Library B**
 
 * Think: Flexible containers adapting to any content
 * Data stored in various formats (documents, key-value pairs, graphs)
@@ -47,7 +47,7 @@
 
 ### **🏢 Interactive Comparison: The Office Building Analogy**
 
-**SQL Database \= Corporate Office Building**
+**SQL Database = Corporate Office Building**
 
 ![img1](https://res.cloudinary.com/dretwg3dy/image/upload/v1763436951/database_bzod5n.png)
 
@@ -58,7 +58,7 @@
 * 📋 Strict rules: Can't add "Favorite Color" unless you modify the entire table
 * ✅ Perfect for: Banking, inventory, financial records, HR systems
 
-**NoSQL Database \= Co-Working Space**
+**NoSQL Database = Co-Working Space**
 
 Document Storage:
 ```json
@@ -69,7 +69,7 @@ Document Storage:
 
  ```json
 
- {  "id": "002",  "name": "Bob",  "department": "IT",  "certifications": ["AWS", "Docker"], "favorite_language": "Python"  // Different fields\! No problem}
+ {  "id": "002",  "name": "Bob",  "department": "IT",  "certifications": ["AWS", "Docker"], "favorite_language": "Python"  // Different fields! No problem}
 
  ```
 
@@ -127,7 +127,7 @@ Document Storage:
 
 ### **🚨 Common Misconception: "NoSQL Means No Structure!"**
 
-**You might think:** "NoSQL \= chaos, just dump data randomly!"
+**You might think:** "NoSQL = chaos, just dump data randomly!"
 
 **The truth:** NoSQL still has structure, just flexible structure!
 
@@ -135,11 +135,21 @@ Document Storage:
 ! Hard to work with
 
 ```json
-{ "user": "alice", "data": "some stuff" }{ "person": "bob", "info": 123 }{ "x": "y", "random": true }
+{ "user": "alice", "data": "some stuff" }
+{ "person": "bob", "info": 123 }
+{ "x": "y", "random": true }
 ```
-Good NoSQL approach:// Flexible but consistent!
+Good NoSQL approach: // Flexible but consistent!
 ```json
-{  "user_id": "alice123",  "post_type": "image",  "content": "...",  "created_at": "2025-10-15",  "tags": ["travel", "sunset"]}{  "user_id": "bob456",  "post_type": "video",  "content": "...",  "created_at": "2025-10-15",  "duration": 45,  "thumbnail": "..."  // Different fields, but still organized}
+{
+"user_id": "alice123",
+"post_type": "image",
+"content": "...",
+"created_at": "2025-10-15",
+"tags": ["travel", "sunset"]}{  "user_id": "bob456",
+"post_type": "video",  "content": "...",  "created_at": "2025-10-15",
+"duration": 45,
+"thumbnail": "..."  // Different fields, but still organized}
 
 ```
 **Mental model:** Think of SQL as a strict form you must fill out completely, and NoSQL as a flexible journal where each entry can be different but still meaningful!

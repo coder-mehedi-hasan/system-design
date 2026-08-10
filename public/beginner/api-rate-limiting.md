@@ -186,7 +186,7 @@ Time 02:00 → 10 tokens added → Bucket has 40 tokens
 
 Time 10:00 → 10 tokens added every minute for 8 minutes
 
-           → Bucket has 40 \+ 80 \= 100 tokens (can't exceed 100!)
+           → Bucket has 40 + 80 = 100 tokens (can't exceed 100!)
 
 **The beauty:**
 
@@ -217,7 +217,7 @@ Successful Request:
  X-RateLimit-Reset: 1730123456← When it resets (Unix timestamp)
  ```
 ```json
- "users": {[...\]}
+ "users": {[...]}
  ```
  The client can see:
  "Okay, I have 742 requests left. The limit resets at 1730123456 Let me pace myself
@@ -244,7 +244,8 @@ Rate Limit Exceeded:
 ```
 
  ```json
- {  "error": "Rate limit exceeded",  "message": "You've made 1000 requests. Limit resets in 1 hour."}
+ {  "error": "Rate limit exceeded",
+"message": "You've made 1000 requests. Limit resets in 1 hour."}
  ```
 
 
@@ -316,9 +317,9 @@ Your server can handle:
 
 - Average user makes 100 requests/day
 
-Math: 10,000 req/sec × 60 × 60 \= 36 million req/hour capacity
+Math: 10,000 req/sec × 60 × 60 = 36 million req/hour capacity
 
-      1000 users × 100 req/day \= 100,000 req/day needed
+      1000 users × 100 req/day = 100,000 req/day needed
 
 You have PLENTY of capacity!
 
@@ -402,7 +403,7 @@ Example Request Flow:
 
 ```bash
 
- GET /v2/users/john/photos?from=2025-01-01\&limit=20\&cursor=photo\500
+ GET /v2/users/john/photos?from=2025-01-01&limit=20&cursor=photo\500
  ↑            ↑                ↑           ↑
  Path param   Query params    Pagination    Pagination
 
@@ -440,7 +441,7 @@ Example Request Flow:
 4 Client continues scrolling:
 ```bash
 
-   GET /v2/users/john/photos?cursor=photo\_520\&limit=20
+   GET /v2/users/john/photos?cursor=photo_520&limit=20
 
 ```
 

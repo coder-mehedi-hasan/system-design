@@ -162,25 +162,25 @@ How hashing works:
 
 User IP: 192.168.1.100
 
-→ Hash function: hash(192.168.1.100) \= 347
+→ Hash function: hash(192.168.1.100) = 347
 
-→ 347 % 3 \= 2  (modulo number of servers)
+→ 347 % 3 = 2  (modulo number of servers)
 
 → Always routes to Server 2!
 
 Same user's next request:
 
-→ hash(192.168.1.100) \= 347  (same!)
+→ hash(192.168.1.100) = 347  (same!)
 
-→ 347 % 3 \= 2
+→ 347 % 3 = 2
 
 → Server 2 again!
 
 Different user IP: 192.168.1.101
 
-→ hash(192.168.1.101) \= 892
+→ hash(192.168.1.101) = 892
 
-→ 892 % 3 \= 1
+→ 892 % 3 = 1
 
 → Routes to Server 1
 
@@ -402,7 +402,7 @@ Load Balancer: "Welcome back, Server 3!"
 
 **Scenario C:** Shopping cart - need same user to hit same server
 
-**Scenario D:** 1 new powerful server \+ 2 older slower servers
+**Scenario D:** 1 new powerful server + 2 older slower servers
 
 **Scenario E:** API with completely independent requests
 
@@ -527,8 +527,8 @@ MODERN LOAD BALANCER CAPABILITIES
 
 3️⃣ Health checks prevent routing to dead servers
 
-4️⃣ Layer 4 \= Fast & simple (TCP/IP)
-   Layer 7 \= Smart & content-aware (HTTP)
+4️⃣ Layer 4 = Fast & simple (TCP/IP)
+   Layer 7 = Smart & content-aware (HTTP)
 
 5️⃣ Load balancers themselves need redundancy!
 

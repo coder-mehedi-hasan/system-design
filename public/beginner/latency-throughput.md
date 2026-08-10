@@ -90,7 +90,7 @@ Server A: Optimized for Low Latency
 
 Response time per request: 10ms (FAST!)
 Concurrent requests: 100
-Requests per second: 100 ÷ 0.01 \= 10,000/sec
+Requests per second: 100 ÷ 0.01 = 10,000/sec
 
 Great for: Real-time applications, APIs
 Use case: Stock trading, gaming
@@ -101,7 +101,7 @@ Server B: Optimized for High Throughput
 
 Response time per request: 100ms (slower)
 Concurrent requests: 10,000
-Requests per second: 10,000 ÷ 0.1 \= 100,000/sec
+Requests per second: 10,000 ÷ 0.1 = 100,000/sec
 
 Great for: Batch processing, data pipelines
 Use case: Analytics, video encoding
@@ -128,8 +128,8 @@ for (let i = 0; i < 1000000; i++) {
 ````
 
 
-Latency per user: 5ms (2ms query \+ 1ms process \+ 2ms network)
-Throughput: 1,000,000 users ÷ 5ms \= 200 users/second
+Latency per user: 5ms (2ms query + 1ms process + 2ms network)
+Throughput: 1,000,000 users ÷ 5ms = 200 users/second
 Total time: 5,000 seconds (83 minutes!) ❌
 
 Approach B: High Throughput (Batches)
@@ -151,7 +151,7 @@ for (let offset = 0; offset < 1000000; offset += BATCH_SIZE) {
 
 
 Latency for first batch: 100ms (slower per user!)
-Throughput: 10,000 users/batch × 10 batches/sec \= 100,000 users/sec
+Throughput: 10,000 users/batch × 10 batches/sec = 100,000 users/sec
 Total time: 10 seconds (Much better!) ✓
 
 **The Tradeoff:**
@@ -165,13 +165,13 @@ Sometimes you sacrifice latency for throughput!
 
 This is a  way to explain it:
 
-Latency \= How fast water flows through the pipe
+Latency = How fast water flows through the pipe
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ![img2](https://res.cloudinary.com/dretwg3dy/image/upload/v1766473816/297_goc0k5.png)
 
-Throughput \= How much total water flows
+Throughput = How much total water flows
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ![img3](https://res.cloudinary.com/dretwg3dy/image/upload/v1766473816/296_f2j8u7.png)
@@ -221,7 +221,7 @@ Throughput Optimization:
 
 - Serves 250 million users simultaneously ✓
 
-Result: Fast start (low latency) \+ sustained streaming (high throughput)
+Result: Fast start (low latency) + sustained streaming (high throughput)
 
 **Case Study 2: Google Search**
 
@@ -248,7 +248,7 @@ Throughput:
 - Scales horizontally
 
 They optimize for BOTH:
-Fast individual results \+ massive query volume
+Fast individual results + massive query volume
 
 ### **The Design Decision Framework**
 
@@ -341,7 +341,7 @@ Request: "Make it faster!"
 
 Engineer A: "I'll reduce latency!"
 Result: Each email sends in 10ms instead of 36ms
-Total time: Still \~50 minutes (minor improvement)
+Total time: Still ~50 minutes (minor improvement)
 
 Engineer B: "I'll increase throughput!"
 Result: Process 10 emails in parallel instead of 1

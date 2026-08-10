@@ -111,14 +111,15 @@ Example 1: Searching for Users
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ```bash
-GET /users?age=25\&city=Seattle\&sort=name ```
+GET /users?age=25&city=Seattle&sort=name ```
 
 
  Breaking it down:
  /users           "I want users"?
  "Now I'm adding filters " age=25
 
- "Only those aged 25"&
+ "Only those aged 25"
+&
  "And also..." city=Seattle
 
  "Who live in Seattle"
@@ -171,7 +172,7 @@ Imagine you're building a movie database API. A client wants to get reviews for 
 
 ```
 
-GET /reviews?movie\_id=123\&rating=5\&sort=date
+GET /reviews?movie_id=123\&rating=5\&sort=date
 
 ```
 
@@ -222,7 +223,7 @@ If you're FILTERING posts
 
 Option B
 
-Both can work\! It depends on your API design philosophy.
+Both can work! It depends on your API design philosophy.
 Most APIs choose Option A for cleaner structure.
 
 **Scenario 3: Search posts with multiple filters**
@@ -234,13 +235,13 @@ Most APIs choose Option A for cleaner structure.
 
 Here, EVERYTHING is a filter:
 
-\- author=john    ← Filter by author
+- author=john    ← Filter by author
 
-\- category=tech  ← Filter by category
+- category=tech  ← Filter by category
 
-\- status=published <-Filter by status
+- status=published <-Filter by status
 
-\- limit=10       ← How many results |
+- limit=10       ← How many results |
 
 ### **Multiple Query Parameters: The Shopping Example**
 
@@ -262,7 +263,7 @@ Let's read this like a sentence:
  showing page 2 (pagination)
  with 20 items per page (pagination)"
 
-Notice how ALL of these are optional\! If the user removes any parameter, the request still works \- it just shows more/different results.
+Notice how ALL of these are optional! If the user removes any parameter, the request still works - it just shows more/different results.
 
 ### **Common Mistakes**
 
@@ -276,7 +277,7 @@ Good:
 GET /users/42
 ```
 
-If it identifies the resource, put it in the path\!
+If it identifies the resource, put it in the path!
 
 **Mistake 2: Putting optional filters in the path**
 ```
@@ -288,7 +289,7 @@ Good:
 
 GET /users?status=active\&role=admin\&city=seattle
 ```
-Filters and options belong in query params\!
+Filters and options belong in query params!
 
 **Mistake 3: Making paths too deep**
 
@@ -307,7 +308,7 @@ Filters and options belong in query params\!
 
 
 ```
-Don't make a crazy hierarchy\! Keep it reasonable \- usually 2-3 levels max.
+Don't make a crazy hierarchy! Keep it reasonable - usually 2-3 levels max.
 
 
 ---
