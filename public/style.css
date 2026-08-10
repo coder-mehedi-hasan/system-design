@@ -44,10 +44,42 @@ body {
   position: sticky;
   top: 0;
   overflow-y: auto;
+  overflow-x: hidden;
+  transition: width 0.18s ease, opacity 0.18s ease;
+}
+
+.app.sidebar-collapsed .sidebar {
+  width: 0;
+  opacity: 0;
+  border-right: none;
+  pointer-events: none;
+}
+
+.sidebar-toggle {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-muted);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: left 0.18s ease;
+}
+
+.sidebar-toggle:hover {
+  background: var(--sidebar-bg);
+  color: var(--text);
 }
 
 .sidebar-header {
-  padding: 20px 18px 14px;
+  padding: 20px 18px 14px 56px;
   border-bottom: 1px solid var(--border);
 }
 
