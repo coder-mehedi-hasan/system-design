@@ -59,7 +59,7 @@ body {
   position: fixed;
   top: 16px;
   left: 16px;
-  z-index: 10;
+  z-index: 30;
   width: 32px;
   height: 32px;
   display: flex;
@@ -70,12 +70,15 @@ body {
   color: var(--text-muted);
   border-radius: 6px;
   cursor: pointer;
-  transition: left 0.18s ease;
 }
 
 .sidebar-toggle:hover {
   background: var(--sidebar-bg);
   color: var(--text);
+}
+
+.sidebar-backdrop {
+  display: none;
 }
 
 .sidebar-header {
@@ -139,6 +142,63 @@ body {
 .markdown-body {
   width: 100%;
   max-width: 760px;
+}
+
+/* Responsive: sidebar becomes an overlay drawer below 860px */
+
+@media (max-width: 860px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 25;
+    width: 280px;
+    max-width: 82vw;
+    transform: translateX(0);
+    box-shadow: 2px 0 16px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease;
+  }
+
+  .app.sidebar-collapsed .sidebar {
+    width: 280px;
+    max-width: 82vw;
+    opacity: 1;
+    transform: translateX(-100%);
+    pointer-events: auto;
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 15, 20, 0.35);
+    z-index: 20;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+  }
+
+  .app.sidebar-collapsed .sidebar-backdrop {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .content {
+    padding: 72px 20px 60px;
+  }
+
+  .markdown-body h1 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-header {
+    padding-left: 52px;
+  }
+
+  .content {
+    padding: 68px 16px 48px;
+  }
 }
 
 .placeholder {
