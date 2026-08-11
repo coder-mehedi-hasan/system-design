@@ -1,11 +1,35 @@
 import { usePwa } from "../hooks/usePwa.js";
 
+function ChapterRow({ title, isActive, isRead, onSelect }) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className={`flex w-full items-center gap-2 rounded-md px-[10px] py-2 text-left text-[13px] leading-[1.4] cursor-pointer
+        ${isActive
+          ? "bg-[var(--accent-bg)] font-semibold text-[var(--accent)]"
+          : isRead
+            ? "text-[var(--text-muted)] hover:bg-[#ececef]"
+            : "text-[var(--text)] hover:bg-[#ececef]"}`}
+    >
+      <span
+        className={`h-[6px] w-[6px] shrink-0 rounded-full bg-[#22a06b] ${isRead ? "opacity-100" : "opacity-0"}`}
+      />
+      <span className="min-w-0 flex-1">{title}</span>
+    </button>
+  );
+}
+
 export default function Sidebar({
-  chapters,
+  courses,
+  activeCourseId,
   activeSlug,
-  readSlugs,
+  chaptersByCourse,
+  readByCourse,
   collapsed,
-  onSelect,
+  onSelectCourse,
+  onSelectChapter,
+  onGoHome,
 }) {
   const { canInstall, promptInstall, isOnline } = usePwa();
 
@@ -19,9 +43,15 @@ export default function Sidebar({
         ${collapsed ? "max-md:-translate-x-full" : "max-md:translate-x-0"}`}
     >
       <div className="border-b border-[var(--border)] px-[18px] pb-[14px] pl-14 pt-5 max-[480px]:pl-[52px]">
-        <h1 className="m-0 mb-1 text-base text-[var(--text)]">System Design</h1>
+        <button
+          type="button"
+          onClick={onGoHome}
+          className="m-0 mb-1 block cursor-pointer text-base font-semibold text-[var(--text)] hover:text-[var(--accent)]"
+        >
+          Courses
+        </button>
         <p className="m-0 text-xs text-[var(--text-muted)]">
-          Introduction · {chapters.length} chapters
+          {courses.length} courses · tap one to open its chapters
         </p>
 
         {canInstall && (
@@ -45,26 +75,58 @@ export default function Sidebar({
       </div>
 
       <nav className="flex flex-col gap-[2px] p-2">
-        {chapters.map((ch) => {
-          const isActive = ch.slug === activeSlug;
-          const isRead = readSlugs.has(ch.slug);
+        {courses.map((course) => {
+          const isExpanded = course.slug === activeCourseId;
+          const chapters = chaptersByCourse[course.slug] || [];
+          const readSet = readByCourse[course.slug] || new Set();
+
           return (
-            <button
-              key={ch.slug}
-              type="button"
-              onClick={() => onSelect(ch.slug)}
-              className={`flex w-full items-center gap-2 rounded-md px-[10px] py-2 text-left text-[13px] leading-[1.4] cursor-pointer
-                ${isActive
-                  ? "bg-[var(--accent-bg)] font-semibold text-[var(--accent)]"
-                  : isRead
-                    ? "text-[var(--text-muted)] hover:bg-[#ececef]"
+            <div key={course.slug}>
+              <button
+                type="button"
+                onClick={() => onSelectCourse(course.slug)}
+                className={`flex w-full items-center gap-2 rounded-md px-[10px] py-2 text-left text-[13px] leading-[1.4] cursor-pointer
+                  ${isExpanded
+                    ? "bg-[var(--accent-bg)] font-semibold text-[var(--accent)]"
                     : "text-[var(--text)] hover:bg-[#ececef]"}`}
-            >
-              <span
-                className={`h-[6px] w-[6px] shrink-0 rounded-full bg-[#22a06b] ${isRead ? "opacity-100" : "opacity-0"}`}
-              />
-              <span className="min-w-0 flex-1">{ch.title}</span>
-            </button>
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`shrink-0 transition-transform duration-150 ${isExpanded ? "rotate-90" : ""}`}
+                >
+                  <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span className="min-w-0 flex-1">{course.title}</span>
+                {chapters.length > 0 && (
+                  <span className="shrink-0 text-[11px] text-[var(--text-muted)]">
+                    {readSet.size}/{chapters.length}
+                  </span>
+                )}
+              </button>
+
+              {isExpanded && (
+                <div className="mb-1 flex flex-col gap-[2px] border-l border-[var(--border)] pl-4 ml-[17px]">
+                  {chapters.length === 0 && (
+                    <p className="px-[10px] py-2 text-[13px] text-[var(--text-muted)]">
+                      No chapters yet.
+                    </p>
+                  )}
+                  {chapters.map((ch) => (
+                    <ChapterRow
+                      key={ch.slug}
+                      title={ch.title}
+                      isActive={ch.slug === activeSlug}
+                      isRead={readSet.has(ch.slug)}
+                      onSelect={() => onSelectChapter(course.slug, ch.slug)}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
           );
         })}
       </nav>

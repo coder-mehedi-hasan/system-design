@@ -14,22 +14,43 @@ import {
 
 const MOBILE_QUERY = "(max-width: 860px)";
 
+// Hash-based routes mirror the content layout:
+//   "#/"                  → course picker
+//   "#/system-design"     → course, first chapter auto-selected
+//   "#/system-design/foo" → a specific chapter
+function parseHash() {
+  const raw = window.location.hash.replace(/^#\/?/, "");
+  const [course, chapter] = raw.split("/");
+  return { course: course || null, chapter: chapter || null };
+}
+
 export default function App() {
-  const [chapters, setChapters] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [chaptersByCourse, setChaptersByCourse] = useState({});
+  const [activeCourseId, setActiveCourseId] = useState(null);
   const [activeSlug, setActiveSlug] = useState(null);
-  const [content, setContent] = useState({ status: "empty", html: "", errorMessage: "" });
-  const [readSlugs, setReadSlugs] = useState(() => getReadSlugs());
+  const [content, setContent] = useState({
+    status: "courses",
+    html: "",
+    errorMessage: "",
+  });
+  const [readByCourse, setReadByCourse] = useState({});
   const [collapsed, setCollapsed] = useState(() => {
     const stored = localStorage.getItem(SIDEBAR_STORAGE_KEY);
     if (stored !== null) return stored === "1";
     return window.matchMedia(MOBILE_QUERY).matches;
   });
 
+  const coursesRef = useRef(courses);
+  coursesRef.current = courses;
+  const chaptersByCourseRef = useRef(chaptersByCourse);
+  chaptersByCourseRef.current = chaptersByCourse;
+  const activeCourseIdRef = useRef(null);
+  activeCourseIdRef.current = activeCourseId;
   const activeSlugRef = useRef(null);
   activeSlugRef.current = activeSlug;
-  const chaptersRef = useRef(chapters);
-  chaptersRef.current = chapters;
   const bootstrappedRef = useRef(false);
+  const requestIdRef = useRef(0);
 
   const isMobile = () => window.matchMedia(MOBILE_QUERY).matches;
 
@@ -39,8 +60,10 @@ export default function App() {
   }, []);
 
   const saveActiveReadingPosition = useCallback(() => {
-    if (activeSlugRef.current) {
-      setChapterReadingPosition(activeSlugRef.current, window.scrollY);
+    const courseId = activeCourseIdRef.current;
+    const slug = activeSlugRef.current;
+    if (courseId && slug) {
+      setChapterReadingPosition(courseId, slug, window.scrollY);
     }
   }, []);
 
@@ -63,31 +86,41 @@ export default function App() {
   }, []);
 
   const selectChapter = useCallback(
-    async (slug, options = {}) => {
+    async (courseId, slug, options = {}) => {
       saveActiveReadingPosition();
-      setActiveSlug(slug);
 
-      if (chaptersRef.current.some((ch) => ch.slug === slug)) {
-        setLastReadingSlug(slug);
+      const chapters = chaptersByCourseRef.current[courseId] || [];
+      const isKnown = !!slug && chapters.some((ch) => ch.slug === slug);
+      setActiveCourseId(courseId);
+      setActiveSlug(isKnown ? slug : null);
+
+      if (!isKnown) {
+        setContent({ status: "course-empty", html: "", errorMessage: "" });
+        window.scrollTo({ top: 0 });
+        return;
       }
 
+      setLastReadingSlug(courseId, slug);
+      const myId = ++requestIdRef.current;
       setContent({ status: "loading", html: "", errorMessage: "" });
 
       try {
-        const res = await fetch(`/beginner/${slug}.md`);
+        const res = await fetch(`/${courseId}/beginner/${slug}.md`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const md = await res.text();
+        if (requestIdRef.current !== myId) return;
         setContent({ status: "ready", html: renderMarkdown(md), errorMessage: "" });
 
         const savedScrollY = Number.isFinite(options.scrollY)
           ? options.scrollY
-          : getChapterReadingPosition(slug);
+          : getChapterReadingPosition(courseId, slug);
         if (options.restorePosition) {
           restoreChapterReadingPosition(slug, savedScrollY);
         } else {
           window.scrollTo({ top: 0 });
         }
       } catch (err) {
+        if (requestIdRef.current !== myId) return;
         setContent({
           status: "error",
           html: "",
@@ -100,45 +133,129 @@ export default function App() {
     [saveActiveReadingPosition, restoreChapterReadingPosition, setSidebarCollapsed]
   );
 
-  // Load the chapter list, then run the initial resume flow once.
+  const navigateToChapter = useCallback((courseId, slug) => {
+    window.location.hash = `/${courseId}/${slug}`;
+  }, []);
+
+  // Reacts to hash changes (back/forward, sidebar clicks, deep links).
+  const handleRoute = useCallback(() => {
+    const { course, chapter } = parseHash();
+    const courseExists = coursesRef.current.some((c) => c.slug === course);
+
+    if (!course || !courseExists) {
+      saveActiveReadingPosition();
+      setActiveCourseId(null);
+      setActiveSlug(null);
+      setContent({ status: "courses", html: "", errorMessage: "" });
+      window.scrollTo({ top: 0 });
+      return;
+    }
+
+    const chapters = chaptersByCourseRef.current[course] || [];
+    const knownChapter =
+      chapter && chapters.some((ch) => ch.slug === chapter) ? chapter : null;
+
+    if (knownChapter) {
+      selectChapter(course, knownChapter, {});
+    } else if (chapters.length) {
+      selectChapter(course, chapters[0].slug, {});
+      window.history.replaceState(null, "", `#/${course}/${chapters[0].slug}`);
+    } else {
+      selectChapter(course, null, {});
+    }
+  }, [saveActiveReadingPosition, selectChapter]);
+
+  // Load course list + all chapter lists, then run the initial navigation once.
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const res = await fetch("/chapters.json");
-      const list = await res.json();
+      let coursesData = [];
+      let chaptersMap = {};
+      try {
+        const res = await fetch("/courses.json");
+        coursesData = await res.json();
+        await Promise.all(
+          coursesData.map(async (course) => {
+            try {
+              const r = await fetch(course.chaptersUrl);
+              chaptersMap[course.slug] = r.ok ? await r.json() : [];
+            } catch {
+              chaptersMap[course.slug] = [];
+            }
+          })
+        );
+      } catch {
+        // courses.json unavailable — fall through with empty state.
+      }
       if (cancelled) return;
-      setChapters(list);
-      chaptersRef.current = list;
+
+      setCourses(coursesData);
+      setChaptersByCourse(chaptersMap);
+      coursesRef.current = coursesData;
+      chaptersByCourseRef.current = chaptersMap;
+      setReadByCourse(
+        Object.fromEntries(coursesData.map((c) => [c.slug, getReadSlugs(c.slug)]))
+      );
 
       if (bootstrappedRef.current) return;
       bootstrappedRef.current = true;
 
-      const params = new URLSearchParams(location.search);
-      const requestedSlug = params.get("chapter");
-      const firstSlug = list[0]?.slug;
-      const hasChapter = (slug) => !!slug && list.some((ch) => ch.slug === slug);
-      const lastReadingSlug = getLastReadingSlug();
+      // Deep link (#/course/chapter or #/course) takes precedence.
+      const { course, chapter } = parseHash();
+      if (course && coursesData.some((c) => c.slug === course)) {
+        const chapters = chaptersMap[course] || [];
+        const knownChapter =
+          chapter && chapters.some((ch) => ch.slug === chapter) ? chapter : null;
 
-      if (hasChapter(requestedSlug)) {
-        selectChapter(requestedSlug);
+        if (knownChapter) {
+          selectChapter(course, knownChapter, { restorePosition: true });
+        } else if (chapters.length) {
+          selectChapter(course, chapters[0].slug, { restorePosition: true });
+          window.history.replaceState(null, "", `#/${course}/${chapters[0].slug}`);
+        } else {
+          selectChapter(course, null, {});
+        }
         return;
       }
 
-      if (hasChapter(lastReadingSlug) && lastReadingSlug !== firstSlug) {
-        if (window.confirm("Do you want to resume your reading?")) {
-          const scrollY = getChapterReadingPosition(lastReadingSlug);
-          selectChapter(lastReadingSlug, { restorePosition: true, scrollY });
+      // No deep link: offer to resume the last-read chapter, otherwise land on
+      // the course picker.
+      const candidate =
+        coursesData.find((c) => getLastReadingSlug(c.slug)) || coursesData[0];
+      if (candidate) {
+        const chapters = chaptersMap[candidate.slug] || [];
+        const firstSlug = chapters[0]?.slug;
+        const lastSlug = getLastReadingSlug(candidate.slug);
+        const canResume =
+          lastSlug &&
+          firstSlug &&
+          lastSlug !== firstSlug &&
+          chapters.some((ch) => ch.slug === lastSlug);
+
+        if (canResume && window.confirm("Do you want to resume your reading?")) {
+          selectChapter(candidate.slug, lastSlug, { restorePosition: true });
+          window.history.replaceState(null, "", `#/${candidate.slug}/${lastSlug}`);
           return;
         }
-      }
 
-      if (firstSlug) selectChapter(firstSlug);
+        if (firstSlug) {
+          selectChapter(candidate.slug, firstSlug, {});
+          window.history.replaceState(null, "", `#/${candidate.slug}/${firstSlug}`);
+        }
+      }
     })();
 
     return () => {
       cancelled = true;
     };
   }, [selectChapter]);
+
+  // Hash-based navigation.
+  useEffect(() => {
+    const onHashChange = () => handleRoute();
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, [handleRoute]);
 
   // Persist reading position on scroll, unload, and tab hide.
   useEffect(() => {
@@ -166,21 +283,54 @@ export default function App() {
     };
   }, [saveActiveReadingPosition]);
 
+  const selectCourse = useCallback(
+    (courseId) => {
+      const chapters = chaptersByCourseRef.current[courseId] || [];
+      if (chapters.length) {
+        navigateToChapter(courseId, chapters[0].slug);
+      } else {
+        window.location.hash = `/${courseId}`;
+      }
+    },
+    [navigateToChapter]
+  );
+
+  const goHome = useCallback(() => {
+    if (window.location.hash !== "#/") {
+      window.location.hash = "/";
+    }
+  }, []);
+
   const toggleRead = () => {
-    if (!activeSlug) return;
-    const next = setChapterRead(activeSlug, !readSlugs.has(activeSlug));
-    setReadSlugs(new Set(next));
+    if (!activeCourseId || !activeSlug) return;
+    const next = setChapterRead(
+      activeCourseId,
+      activeSlug,
+      !(readByCourse[activeCourseId] || new Set()).has(activeSlug)
+    );
+    setReadByCourse((prev) => ({ ...prev, [activeCourseId]: next }));
   };
 
   const goToOffset = (offset) => {
+    const chapters = chaptersByCourseRef.current[activeCourseId] || [];
     const idx = chapters.findIndex((ch) => ch.slug === activeSlug);
     const target = idx + offset;
     if (target >= 0 && target < chapters.length) {
-      selectChapter(chapters[target].slug);
+      navigateToChapter(activeCourseId, chapters[target].slug);
     }
   };
 
-  const chapterIndex = chapters.findIndex((ch) => ch.slug === activeSlug);
+  const activeCourse = courses.find((c) => c.slug === activeCourseId) || null;
+  const activeChapters = activeCourseId ? chaptersByCourse[activeCourseId] || [] : [];
+  const activeReadSlugs = readByCourse[activeCourseId] || new Set();
+  const chapterIndex = activeChapters.findIndex((ch) => ch.slug === activeSlug);
+
+  const courseCards = courses.map((c) => ({
+    slug: c.slug,
+    title: c.title,
+    description: c.description,
+    chapterCount: (chaptersByCourse[c.slug] || []).length,
+  }));
 
   return (
     <>
@@ -206,21 +356,28 @@ export default function App() {
         />
 
         <Sidebar
-          chapters={chapters}
+          courses={courseCards}
+          activeCourseId={activeCourseId}
           activeSlug={activeSlug}
-          readSlugs={readSlugs}
+          chaptersByCourse={chaptersByCourse}
+          readByCourse={readByCourse}
           collapsed={collapsed}
-          onSelect={selectChapter}
+          onSelectCourse={selectCourse}
+          onSelectChapter={navigateToChapter}
+          onGoHome={goHome}
         />
 
         <ChapterView
-          html={content.html}
           status={content.status}
+          html={content.html}
           errorMessage={content.errorMessage}
+          courses={courseCards}
+          activeCourse={activeCourse}
           chapterIndex={chapterIndex}
-          totalChapters={chapters.length}
-          readCount={readSlugs.size}
-          isActiveRead={!!activeSlug && readSlugs.has(activeSlug)}
+          totalChapters={activeChapters.length}
+          readCount={activeReadSlugs.size}
+          isActiveRead={!!activeSlug && activeReadSlugs.has(activeSlug)}
+          onSelectCourse={selectCourse}
           onToggleRead={toggleRead}
           onPrev={() => goToOffset(-1)}
           onNext={() => goToOffset(1)}

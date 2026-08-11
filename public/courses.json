@@ -1,0 +1,20 @@
+[
+  {
+    "slug": "system-design",
+    "title": "System Design",
+    "description": "Introduction · fundamentals of computing to CAP theorem",
+    "chaptersUrl": "/system-design/chapters.json"
+  },
+  {
+    "slug": "microprocessor",
+    "title": "Microprocessor",
+    "description": "Microprocessor architecture and programming",
+    "chaptersUrl": "/microprocessor/chapters.json"
+  },
+  {
+    "slug": "assembly",
+    "title": "Assembly Language",
+    "description": "Low-level programming and assembly",
+    "chaptersUrl": "/assembly/chapters.json"
+  }
+]

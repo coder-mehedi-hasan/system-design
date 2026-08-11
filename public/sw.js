@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v1";
+const CACHE_VERSION = "v2";
 const APP_CACHE = `sd-viewer-app-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `sd-viewer-runtime-${CACHE_VERSION}`;
 
@@ -8,7 +8,7 @@ const RUNTIME_CACHE = `sd-viewer-runtime-${CACHE_VERSION}`;
 const APP_SHELL = [
   "./",
   "index.html",
-  "chapters.json",
+  "courses.json",
   "manifest.json",
 ];
 
@@ -19,12 +19,16 @@ self.addEventListener("install", (event) => {
       await cache.addAll(APP_SHELL);
 
       try {
-        const res = await fetch("chapters.json");
-        const chapters = await res.json();
-        const mdUrls = chapters.map((ch) => `beginner/${ch.slug}.md`);
-        await cache.addAll(mdUrls);
+        const res = await fetch("courses.json");
+        const courses = await res.json();
+        for (const course of courses) {
+          const chaptersRes = await fetch(course.chaptersUrl);
+          const chapters = await chaptersRes.json();
+          const mdUrls = chapters.map((ch) => `${course.slug}/beginner/${ch.slug}.md`);
+          await cache.addAll(mdUrls);
+        }
       } catch (err) {
-        // Offline install or chapters.json unavailable — app shell is still cached.
+        // Offline install or courses.json unavailable — app shell is still cached.
       }
 
       self.skipWaiting();

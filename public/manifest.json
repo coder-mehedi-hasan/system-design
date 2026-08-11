@@ -1,7 +1,7 @@
 {
-  "name": "Introduction to System Design",
-  "short_name": "System Design",
-  "description": "A 42-chapter course on system design fundamentals, readable offline.",
+  "name": "Course Viewer",
+  "short_name": "Courses",
+  "description": "Multi-course learning app — System Design, Microprocessor, and Assembly Language, readable offline.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
