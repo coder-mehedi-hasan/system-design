@@ -20,6 +20,21 @@ function ChapterRow({ title, isActive, isRead, onSelect }) {
   );
 }
 
+function CourseRow({ title, chapterCount, onSelect }) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className="flex w-full cursor-pointer items-center gap-2 rounded-md px-[10px] py-2 text-left text-[13px] leading-[1.4] text-[var(--text)] hover:bg-[#ececef]"
+    >
+      <span className="min-w-0 flex-1 font-medium">{title}</span>
+      <span className="shrink-0 text-[11px] text-[var(--text-muted)]">
+        {chapterCount} {chapterCount === 1 ? "chapter" : "chapters"}
+      </span>
+    </button>
+  );
+}
+
 export default function Sidebar({
   courses,
   activeCourseId,
@@ -32,6 +47,9 @@ export default function Sidebar({
   onGoHome,
 }) {
   const { canInstall, promptInstall, isOnline } = usePwa();
+  const activeCourse = courses.find((c) => c.slug === activeCourseId) || null;
+  const activeChapters = activeCourseId ? chaptersByCourse[activeCourseId] || [] : [];
+  const activeReadSet = activeCourseId ? readByCourse[activeCourseId] || new Set() : new Set();
 
   return (
     <aside
@@ -43,6 +61,18 @@ export default function Sidebar({
         ${collapsed ? "max-md:-translate-x-full" : "max-md:translate-x-0"}`}
     >
       <div className="border-b border-[var(--border)] px-[18px] pb-[14px] pl-14 pt-5 max-[480px]:pl-[52px]">
+        {activeCourse && (
+          <button
+            type="button"
+            onClick={onGoHome}
+            className="mb-2 flex items-center gap-[4px] rounded-full border border-[var(--border)] bg-[var(--bg)] px-2 py-[3px] text-[11px] font-semibold text-[var(--text-muted)] cursor-pointer hover:text-[var(--text)]"
+          >
+            <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 4L6 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            All courses
+          </button>
+        )}
         <button
           type="button"
           onClick={onGoHome}
@@ -51,7 +81,9 @@ export default function Sidebar({
           Courses
         </button>
         <p className="m-0 text-xs text-[var(--text-muted)]">
-          {courses.length} courses · tap one to open its chapters
+          {activeCourse
+            ? `${activeCourse.title} · ${activeChapters.length} chapters`
+            : "Select a course to begin"}
         </p>
 
         {canInstall && (
@@ -75,60 +107,32 @@ export default function Sidebar({
       </div>
 
       <nav className="flex flex-col gap-[2px] p-2">
-        {courses.map((course) => {
-          const isExpanded = course.slug === activeCourseId;
-          const chapters = chaptersByCourse[course.slug] || [];
-          const readSet = readByCourse[course.slug] || new Set();
-
-          return (
-            <div key={course.slug}>
-              <button
-                type="button"
-                onClick={() => onSelectCourse(course.slug)}
-                className={`flex w-full items-center gap-2 rounded-md px-[10px] py-2 text-left text-[13px] leading-[1.4] cursor-pointer
-                  ${isExpanded
-                    ? "bg-[var(--accent-bg)] font-semibold text-[var(--accent)]"
-                    : "text-[var(--text)] hover:bg-[#ececef]"}`}
-              >
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className={`shrink-0 transition-transform duration-150 ${isExpanded ? "rotate-90" : ""}`}
-                >
-                  <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <span className="min-w-0 flex-1">{course.title}</span>
-                {chapters.length > 0 && (
-                  <span className="shrink-0 text-[11px] text-[var(--text-muted)]">
-                    {readSet.size}/{chapters.length}
-                  </span>
-                )}
-              </button>
-
-              {isExpanded && (
-                <div className="mb-1 flex flex-col gap-[2px] border-l border-[var(--border)] pl-4 ml-[17px]">
-                  {chapters.length === 0 && (
-                    <p className="px-[10px] py-2 text-[13px] text-[var(--text-muted)]">
-                      No chapters yet.
-                    </p>
-                  )}
-                  {chapters.map((ch) => (
-                    <ChapterRow
-                      key={ch.slug}
-                      title={ch.title}
-                      isActive={ch.slug === activeSlug}
-                      isRead={readSet.has(ch.slug)}
-                      onSelect={() => onSelectChapter(course.slug, ch.slug)}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          );
-        })}
+        {activeCourse ? (
+          activeChapters.length === 0 ? (
+            <p className="px-[10px] py-2 text-[13px] text-[var(--text-muted)]">
+              No chapters yet.
+            </p>
+          ) : (
+            activeChapters.map((ch) => (
+              <ChapterRow
+                key={ch.slug}
+                title={ch.title}
+                isActive={ch.slug === activeSlug}
+                isRead={activeReadSet.has(ch.slug)}
+                onSelect={() => onSelectChapter(activeCourseId, ch.slug)}
+              />
+            ))
+          )
+        ) : (
+          courses.map((course) => (
+            <CourseRow
+              key={course.slug}
+              title={course.title}
+              chapterCount={chaptersByCourse[course.slug]?.length || 0}
+              onSelect={() => onSelectCourse(course.slug)}
+            />
+          ))
+        )}
       </nav>
     </aside>
   );
