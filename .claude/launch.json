@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "system-design-viewer",
-      "runtimeExecutable": "node",
-      "runtimeArgs": ["server.js"],
-      "port": 8123
+      "name": "vite-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 5173
     }
   ]
 }

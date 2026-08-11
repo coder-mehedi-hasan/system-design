@@ -2,11 +2,12 @@ const CACHE_VERSION = "v1";
 const APP_CACHE = `sd-viewer-app-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `sd-viewer-runtime-${CACHE_VERSION}`;
 
+// Vite emits hashed JS/CSS bundles whose names we can't know ahead of time, so
+// the pre-cache only covers stable entry points; hashed assets are cached at
+// runtime by the stale-while-revalidate fetch handler below.
 const APP_SHELL = [
   "./",
   "index.html",
-  "style.css",
-  "app.js",
   "chapters.json",
   "manifest.json",
 ];

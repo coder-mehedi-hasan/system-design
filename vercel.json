@@ -1,6 +1,6 @@
 {
-  "framework": null,
-  "buildCommand": null,
-  "installCommand": null,
-  "outputDirectory": "public"
+  "framework": "vite",
+  "buildCommand": "vite build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist"
 }
