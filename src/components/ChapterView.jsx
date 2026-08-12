@@ -16,9 +16,10 @@ export default function ChapterView({
   const hasActive = activeCourse && chapterIndex !== -1;
 
   return (
-    <main className="flex flex-1 min-w-0 justify-center px-12 pb-20 pt-10 max-md:px-5 max-md:pb-[60px] max-md:pt-[72px] max-[480px]:px-4 max-[480px]:pb-12 max-[480px]:pt-[68px]">
+    <main className="flex flex-1 min-w-0 justify-center px-12 pb-20 pt-6 max-md:px-5 max-md:pb-[60px] max-md:pt-[68px] max-[480px]:px-4 max-[480px]:pb-12 max-[480px]:pt-[64px]">
       <div className="w-full max-w-[760px]">
-        <div className="mb-5 flex items-center justify-between">
+        <div className="sticky top-3 z-10 mb-5 rounded-xl border border-[var(--border)] bg-[var(--bg)] px-3 py-2 shadow-[0_1px_0_rgba(0,0,0,0.03)] max-md:top-2">
+          <div className="flex items-center justify-between gap-3 max-[640px]:flex-col max-[640px]:items-start">
           <div className="flex min-w-0 items-center gap-[6px]">
             {activeCourse && (
               <>
@@ -45,7 +46,7 @@ export default function ChapterView({
             type="button"
             onClick={onToggleRead}
             disabled={!hasActive}
-            className={`flex items-center gap-[6px] rounded-full border px-3 py-[6px] text-xs font-medium cursor-pointer disabled:cursor-default disabled:opacity-50
+            className={`flex shrink-0 items-center gap-[6px] rounded-full border px-3 py-[6px] text-xs font-medium cursor-pointer disabled:cursor-default disabled:opacity-50 max-[640px]:w-full max-[640px]:justify-center
               ${isActiveRead
                 ? "border-[#b7ebc6] bg-[#ecfdf3] text-[#12734b]"
                 : "border-[var(--border)] bg-[var(--bg)] text-[var(--text-muted)] hover:bg-[var(--sidebar-bg)] hover:text-[var(--text)]"}`}
@@ -62,6 +63,7 @@ export default function ChapterView({
             </svg>
             <span>{isActiveRead ? "Read" : "Mark as read"}</span>
           </button>
+          </div>
         </div>
 
         <div className="markdown-body w-full">
