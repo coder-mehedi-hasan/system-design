@@ -9,6 +9,6 @@
     "slug": "microprocessor-assembly-language",
     "title": "Microprocessor & Assembly Language",
     "description": "Microprocessor architecture and programming",
-    "chaptersUrl": "/microprocessor-assembly/chapters.json"
+    "chaptersUrl": "/microprocessor-assembly-language/chapters.json"
   }
 ]
