@@ -42,7 +42,7 @@ export default function ChapterView({
             )}
           </div>
 
-          <button
+          {/* <button
             type="button"
             onClick={onToggleRead}
             disabled={!hasActive}
@@ -62,7 +62,7 @@ export default function ChapterView({
               <path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <span>{isActiveRead ? "Read" : "Mark as read"}</span>
-          </button>
+          </button> */}
           </div>
         </div>
 

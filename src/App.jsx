@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Sidebar from "./components/Sidebar.jsx";
 import ChapterView from "./components/ChapterView.jsx";
+import FloatingReadProgress from "./components/FloatingReadProgress.jsx";
 import { renderMarkdown } from "./lib/markdown.js";
 import { youtubeEmbedHtml } from "./lib/youtube.js";
 import {
@@ -395,6 +396,13 @@ export default function App() {
           onToggleRead={toggleRead}
           onPrev={() => goToOffset(-1)}
           onNext={() => goToOffset(1)}
+        />
+
+        <FloatingReadProgress
+          visible={content.status === "ready" && chapterIndex !== -1}
+          chapterKey={`${activeCourseId}:${activeSlug}`}
+          isActiveRead={!!activeSlug && activeReadSlugs.has(activeSlug)}
+          onToggleRead={toggleRead}
         />
       </div>
     </>
