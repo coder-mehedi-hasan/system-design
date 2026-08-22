@@ -10,5 +10,11 @@
     "title": "Microprocessor & Assembly Language",
     "description": "Microprocessor architecture and programming",
     "chaptersUrl": "/microprocessor-assembly-language/chapters.json"
+  },
+  {
+    "slug": "docker",
+    "title": "Docker",
+    "description": "50-part video course — containers, images, networking, and Docker workflows",
+    "chaptersUrl": "/docker/chapters.json"
   }
 ]

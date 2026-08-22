@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v3";
+const CACHE_VERSION = "v4";
 const APP_CACHE = `sd-viewer-app-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `sd-viewer-runtime-${CACHE_VERSION}`;
 
@@ -24,7 +24,9 @@ self.addEventListener("install", (event) => {
         for (const course of courses) {
           const chaptersRes = await fetch(course.chaptersUrl);
           const chapters = await chaptersRes.json();
-          const mdUrls = chapters.map((ch) => `${course.slug}/beginner/${ch.slug}.md`);
+          const mdUrls = chapters
+            .filter((ch) => !ch.youtube)
+            .map((ch) => `${course.slug}/beginner/${ch.slug}.md`);
           await cache.addAll(mdUrls);
         }
       } catch (err) {

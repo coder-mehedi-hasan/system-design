@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Sidebar from "./components/Sidebar.jsx";
 import ChapterView from "./components/ChapterView.jsx";
 import { renderMarkdown } from "./lib/markdown.js";
+import { youtubeEmbedHtml } from "./lib/youtube.js";
 import {
   getReadSlugs,
   setChapterRead,
@@ -90,11 +91,11 @@ export default function App() {
       saveActiveReadingPosition();
 
       const chapters = chaptersByCourseRef.current[courseId] || [];
-      const isKnown = !!slug && chapters.some((ch) => ch.slug === slug);
+      const chapter = slug ? chapters.find((ch) => ch.slug === slug) : null;
       setActiveCourseId(courseId);
-      setActiveSlug(isKnown ? slug : null);
+      setActiveSlug(chapter ? slug : null);
 
-      if (!isKnown) {
+      if (!chapter) {
         setContent({ status: "course-empty", html: "", errorMessage: "" });
         window.scrollTo({ top: 0 });
         return;
@@ -102,6 +103,19 @@ export default function App() {
 
       setLastReadingSlug(courseId, slug);
       const myId = ++requestIdRef.current;
+
+      // Video chapters embed a YouTube player instead of loading markdown.
+      if (chapter.youtube) {
+        setContent({
+          status: "ready",
+          html: youtubeEmbedHtml(chapter.youtube),
+          errorMessage: "",
+        });
+        window.scrollTo({ top: 0 });
+        if (isMobile()) setSidebarCollapsed(true);
+        return;
+      }
+
       setContent({ status: "loading", html: "", errorMessage: "" });
 
       try {

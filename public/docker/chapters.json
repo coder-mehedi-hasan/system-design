@@ -1,0 +1,252 @@
+[
+  {
+    "slug": "01-about-me",
+    "title": "1. About me",
+    "youtube": "https://www.youtube.com/watch?v=c6M472C5_b8"
+  },
+  {
+    "slug": "02-why-me",
+    "title": "2. Why Me",
+    "youtube": "https://www.youtube.com/watch?v=8Z_Nq72WTOE"
+  },
+  {
+    "slug": "03-who-is-this-course-for",
+    "title": "3. Who Is This Course For",
+    "youtube": "https://www.youtube.com/watch?v=sKm-HVrr1rg"
+  },
+  {
+    "slug": "04-pre-requisites",
+    "title": "4. Pre Requisites",
+    "youtube": "https://www.youtube.com/watch?v=3ZdvnonkH5g"
+  },
+  {
+    "slug": "05-what-is-docker",
+    "title": "5. What Is Docker",
+    "youtube": "https://www.youtube.com/watch?v=I62nYMQyz48"
+  },
+  {
+    "slug": "06-install-docker-on-windows",
+    "title": "6. Install Docker on Windows",
+    "youtube": "https://www.youtube.com/watch?v=_uSQUUuYjhE"
+  },
+  {
+    "slug": "07-install-docker-on-ubuntu",
+    "title": "7. Install Docker on Ubuntu",
+    "youtube": "https://www.youtube.com/watch?v=YFwGu-Mf8qU"
+  },
+  {
+    "slug": "08-install-docker-on-mac",
+    "title": "8. Install Docker on Mac",
+    "youtube": "https://www.youtube.com/watch?v=rWmBv_8jMkI"
+  },
+  {
+    "slug": "09-what-is-kernel",
+    "title": "9. What Is Kernel",
+    "youtube": "https://www.youtube.com/watch?v=qhQ_4-o2kJQ"
+  },
+  {
+    "slug": "10-virtual-machine",
+    "title": "10. Virtual Machine",
+    "youtube": "https://www.youtube.com/watch?v=5YNAGk6zSag"
+  },
+  {
+    "slug": "11-container",
+    "title": "11. Container",
+    "youtube": "https://www.youtube.com/watch?v=Ch_1jkj5uTY"
+  },
+  {
+    "slug": "12-container-vs-virtual-machine-docker-engine",
+    "title": "12. Container Vs Virtual Machine | Docker Engine",
+    "youtube": "https://www.youtube.com/watch?v=HWt2IXk59aw"
+  },
+  {
+    "slug": "13-docker-engine-internals",
+    "title": "13. Docker Engine Internals",
+    "youtube": "https://www.youtube.com/watch?v=BjwoCFwooJU"
+  },
+  {
+    "slug": "14-docker-eco-system",
+    "title": "14. Docker Eco System",
+    "youtube": "https://www.youtube.com/watch?v=lDklV7p3h8U"
+  },
+  {
+    "slug": "15-linux",
+    "title": "15. Linux",
+    "youtube": "https://www.youtube.com/watch?v=4cKJ7f6YCjQ"
+  },
+  {
+    "slug": "16-linux-gnu-coreutils",
+    "title": "16. Linux - GNU Coreutils",
+    "youtube": "https://www.youtube.com/watch?v=mWdRPr9V-pw"
+  },
+  {
+    "slug": "17-running-ubuntu-on-docker",
+    "title": "17. Running Ubuntu On Docker",
+    "youtube": "https://www.youtube.com/watch?v=7pyynz-PTxU"
+  },
+  {
+    "slug": "18-managing-packages-on-linux",
+    "title": "18. Managing Packages On Linux",
+    "youtube": "https://www.youtube.com/watch?v=W7uuHbEv528"
+  },
+  {
+    "slug": "19-linux-basic-commands",
+    "title": "19. Linux Basic Commands",
+    "youtube": "https://www.youtube.com/watch?v=6WL7VOX55kg"
+  },
+  {
+    "slug": "20-managing-user-group-permission",
+    "title": "20. Managing User Group & Permission",
+    "youtube": "https://www.youtube.com/watch?v=6wqYiB3Cobk"
+  },
+  {
+    "slug": "21-docker-hands-on",
+    "title": "21. Docker Hands On",
+    "youtube": "https://www.youtube.com/watch?v=JQbaqSFzTvs"
+  },
+  {
+    "slug": "22-towards-the-dockerfile",
+    "title": "22. Towards The Dockerfile",
+    "youtube": "https://www.youtube.com/watch?v=kE5EF6zVmEc"
+  },
+  {
+    "slug": "23-cmd-deep-dive",
+    "title": "23. CMD - Deep Dive",
+    "youtube": "https://www.youtube.com/watch?v=rruzho-1xro"
+  },
+  {
+    "slug": "24-workdir-deep-dive",
+    "title": "24. Workdir - Deep Dive",
+    "youtube": "https://www.youtube.com/watch?v=-qtcWdbRj6g"
+  },
+  {
+    "slug": "25-detach-mode",
+    "title": "25. Detach Mode",
+    "youtube": "https://www.youtube.com/watch?v=_8-9EE1a1Eo"
+  },
+  {
+    "slug": "26-managing-containers",
+    "title": "26. Managing Containers",
+    "youtube": "https://www.youtube.com/watch?v=ANpUUiLrr7o"
+  },
+  {
+    "slug": "27-building-magic-behind-the-dockerfile",
+    "title": "27. Building Magic Behind The Dockerfile",
+    "youtube": "https://www.youtube.com/watch?v=XGw9yYb-glI"
+  },
+  {
+    "slug": "28-philosophy-of-osi-model",
+    "title": "28. Philosophy of OSI Model",
+    "youtube": "https://www.youtube.com/watch?v=-EXt03pP_FU"
+  },
+  {
+    "slug": "29-tcp-ip-model",
+    "title": "29. TCP/IP Model",
+    "youtube": "https://www.youtube.com/watch?v=Uzah4X4aSzw"
+  },
+  {
+    "slug": "30-tcp-in-details",
+    "title": "30. TCP In Details",
+    "youtube": "https://www.youtube.com/watch?v=JhuIYWGrKm8"
+  },
+  {
+    "slug": "31-udp-in-details",
+    "title": "31. UDP In Details",
+    "youtube": "https://www.youtube.com/watch?v=jnBJpX5niNg"
+  },
+  {
+    "slug": "32-http-1-0-in-details",
+    "title": "32. HTTP/1.0 In Details",
+    "youtube": "https://www.youtube.com/watch?v=NqyUJl9GsYM"
+  },
+  {
+    "slug": "33-http-1-1-in-details",
+    "title": "33. HTTP/1.1 In Details",
+    "youtube": "https://www.youtube.com/watch?v=TigXFg-VHoA"
+  },
+  {
+    "slug": "34-http-2-in-details",
+    "title": "34. HTTP/2 In Details",
+    "youtube": "https://www.youtube.com/watch?v=lUSOfEdpNXc"
+  },
+  {
+    "slug": "35-dns-domain-name-system",
+    "title": "35. DNS - Domain Name System",
+    "youtube": "https://www.youtube.com/watch?v=_Zi55Gf9xxw"
+  },
+  {
+    "slug": "36-tls-transport-layer-security",
+    "title": "36. TLS (Transport Layer Security)",
+    "youtube": "https://www.youtube.com/watch?v=r5vWoW13urQ"
+  },
+  {
+    "slug": "37-internet-protocol-ip",
+    "title": "37. Internet Protocol - IP",
+    "youtube": "https://www.youtube.com/watch?v=WbVJ19F7VN0"
+  },
+  {
+    "slug": "38-data-link-layer-frame",
+    "title": "38. Data Link Layer Frame",
+    "youtube": "https://www.youtube.com/watch?v=M8wgeTLmMYI"
+  },
+  {
+    "slug": "39-first-computer-first-router",
+    "title": "39. First Computer & First Router",
+    "youtube": "https://www.youtube.com/watch?v=NtCw8A6HVLA"
+  },
+  {
+    "slug": "40-first-computer-first-router-part-2",
+    "title": "40. First Computer & First Router - Part 2",
+    "youtube": "https://www.youtube.com/watch?v=EbXeq8OBNPQ"
+  },
+  {
+    "slug": "41-cidr-subnet-subnet-mask",
+    "title": "41. CIDR | Subnet | Subnet mask",
+    "youtube": "https://www.youtube.com/watch?v=ebBMnXjic8s"
+  },
+  {
+    "slug": "42-dhcp-discover-break-into-pieces",
+    "title": "42. DHCP Discover | Break Into Pieces",
+    "youtube": "https://www.youtube.com/watch?v=9SzieJXarZQ"
+  },
+  {
+    "slug": "43-dhcp-offer-break-into-pieces",
+    "title": "43. DHCP Offer | Break Into Pieces",
+    "youtube": "https://www.youtube.com/watch?v=aPzaFVYcSpc"
+  },
+  {
+    "slug": "44-dhcp-request-acknowledge-break-into-pieces",
+    "title": "44. DHCP Request & Acknowledge | Break Into Pieces",
+    "youtube": "https://www.youtube.com/watch?v=m7LgplfmurI"
+  },
+  {
+    "slug": "45-hub-switch-router",
+    "title": "45. Hub | Switch | Router",
+    "youtube": "https://www.youtube.com/watch?v=O9MmB4dY2LI"
+  },
+  {
+    "slug": "46-networking-inside-a-network",
+    "title": "46. Networking Inside A Network",
+    "youtube": "https://www.youtube.com/watch?v=kw6s28dRF7U"
+  },
+  {
+    "slug": "47-multiple-nics-in-a-single-computer",
+    "title": "47. Multiple NICs In A Single Computer",
+    "youtube": "https://www.youtube.com/watch?v=4Lyk-z1x_54"
+  },
+  {
+    "slug": "48-visualize-nics-in-a-single-computer",
+    "title": "48. Visualize NICs In A Single Computer",
+    "youtube": "https://www.youtube.com/watch?v=rvhwTqfWsr0"
+  },
+  {
+    "slug": "49-routing-table",
+    "title": "49. Routing Table",
+    "youtube": "https://www.youtube.com/watch?v=zP_v0ZESoLo"
+  },
+  {
+    "slug": "50-how-os-choose-nic",
+    "title": "50. How OS choose NIC",
+    "youtube": "https://www.youtube.com/watch?v=OXK5s_h7SiQ"
+  }
+]
